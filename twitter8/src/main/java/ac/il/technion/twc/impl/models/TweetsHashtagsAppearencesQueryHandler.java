@@ -17,11 +17,18 @@ public class TweetsHashtagsAppearencesQueryHandler extends TweetsHashtagsQueryHa
 		super();
 	}
 	
+
+	private void addPopularityToHashTags(List<String> hashtags){
+		for ( String hashtag : hashtags){
+			addHashtag(hashtag);
+		}
+	}
+	
 	@Override
 	public void onTweetsAdded(List<Tweet> tweets,
 			ITweetsRepository tweetsRepository) {
 		for ( Tweet tweet : tweets){
-			addPopularityToHashTags(tweet.getHashtags(),tweet.getNumRetweets());
+			addPopularityToHashTags(tweet.getHashtags());
 		}
 	}
 
