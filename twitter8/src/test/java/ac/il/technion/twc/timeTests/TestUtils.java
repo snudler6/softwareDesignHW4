@@ -2,10 +2,12 @@ package ac.il.technion.twc.timeTests;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.TimeZone;
@@ -26,13 +28,13 @@ public class TestUtils {
 	public static final int MEDIUM_SAMPLE_LINES = 10000;
 	public static final int LARGE_SAMPLE_LINES = 1000000;
 
-	public static String[] generateTweets(final int n) {
+	public static String[] generateTweets(final int n,final SimpleDateFormat dateFormat) {
 		final String[] tweets = new String[n];
 
-		tweets[0] = PostFactory.DATE_FORMATTER.format(new Date(0)) + ", 0";
+		tweets[0] = dateFormat.format(new Date(0)) + ", 0";
 
 		for (int i = 1; i < n; ++i) {
-			tweets[i] = PostFactory.DATE_FORMATTER.format(new Date(i)) + ", "
+			tweets[i] = dateFormat.format(new Date(i)) + ", "
 					+ Integer.toString(i);
 
 			if (RANDOM_GEN.nextFloat() < RETWEETS_PORTION)

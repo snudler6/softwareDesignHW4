@@ -1,13 +1,7 @@
 package ac.il.technion.twc.timeTests.partA;
 
-import static org.junit.Assert.fail;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,42 +9,25 @@ import org.junit.Test;
 import ac.il.technion.twc.FunctionalityTester;
 import ac.il.technion.twc.api.FileDataManager;
 import ac.il.technion.twc.api.interfaces.IDataManager;
+import ac.il.technion.twc.timeTests.TestUtils;
 
 public class AncestorQueryHandlerTimeTest {
 
-	FunctionalityTester target;
+	FunctionalityTester target = new FunctionalityTester();
 	IDataManager repositoryDataManager = new FileDataManager("./src/test/resources/repositoryMillionTweetsSameDate");
 	IDataManager indexDataManager = new FileDataManager("./src/test/resources/MillionTweetsHalfOfThemRetweets");
 	
 	@Before
 	public void setUp() throws Exception {
-		this.target = new FunctionalityTester(repositoryDataManager, indexDataManager);
-
-		/* To create the big file */
-		Path filePath = new File("./src/test/resources/MillionTweetsHalfOfThemRetweets").toPath();
-		File file = filePath.toFile();
-		if (!file.exists())
-		{
-			FileWriter writer = new FileWriter(filePath.toString());
-			for (int i = 0; i < 1000000; i++)
-			{
-				writer.write("04/04/2014 12:00:00, " + i + "\n");
-			}
-			writer.close();
-			
-			/* To create the persistent data */
-			Charset charset = Charset.defaultCharset();
-			List<String> stringList = Files.readAllLines(filePath, charset);
-			String[] lines = stringList.toArray(new String[] {});
-			this.target.importData(lines);
-		}				
-		this.target.setupIndex();
+		String[] lines = TestUtils.generateTweets(TestUtils.LARGE_SAMPLE_LINES,new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.ENGLISH));
+		target.importData(lines);
+		target.setupIndex();
 	}
 
 	
-	@Test
-	public final void test() {
-		fail("Not yet implemented");
+	@Test(timeout = TestUtils.LARGE_SAMPLE_LINES / 2) // 0.5ms to tweet. 1,000,000 tweets . 500 seconds limit
+	public final void testMillionTweets() throws Exception {
+		target.getOriginalTweetsId("4"); //some random tweet. this is a stree test
 	}
 
 }

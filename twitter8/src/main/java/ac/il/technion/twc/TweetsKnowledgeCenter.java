@@ -2,7 +2,10 @@ package ac.il.technion.twc;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -18,6 +21,8 @@ import ac.il.technion.twc.impl.models.partA.TweetsHashtagsAppearencesQueryHandle
 import ac.il.technion.twc.impl.models.partA.UsersFirstTweetQueryHandler;
 import ac.il.technion.twc.impl.models.partB.TweetsNumberByUserQueryHandler;
 import ac.il.technion.twc.impl.models.partB.TweetsRetweetsAmountQueryHandler;
+import ac.il.technion.twc.impl.models.partC.Pair;
+import ac.il.technion.twc.impl.models.partC.TweetsHashtagsCouplingQueryHandler;
 import ac.il.technion.twc.impl.services.ITweetsHashtagsQueryHandler;
 import ac.il.technion.twc.impl.services.ITweetsLifetimeQueryHandler;
 import ac.il.technion.twc.impl.services.partA.ITweetsAncestorQueryHandler;
@@ -25,6 +30,7 @@ import ac.il.technion.twc.impl.services.partA.ITweetsHashtagsAppearenceQueryHand
 import ac.il.technion.twc.impl.services.partA.IUsersFirstTweetQueryHandler;
 import ac.il.technion.twc.impl.services.partB.ITweetsNumberByUserQueryHandler;
 import ac.il.technion.twc.impl.services.partB.ITweetsRetweetsAmountQueryHandler;
+import ac.il.technion.twc.impl.services.partC.ITweetsHashtagsCouplingQueryHandler;
 
 import com.google.inject.Inject;
 
@@ -46,6 +52,8 @@ public class TweetsKnowledgeCenter extends TweetsManager
 	final String TWEETS_NUMBER_BY_USER_QUERY_HANDLER = "TWEETS_NUMBER_BY_USER_QUERY_HANDLER";
 	final String TWEETS_RETWEETS_AMOUNT = "TWEETS_RETWEETS_AMOUNT";
 	
+	//Part C data handlers
+	final String TWEETS_HASHTAGS_COUPLING_QUERY_HANDLER = "TWEETS_HASHTAGS_COUPLING_QUERY_HANDLER";
 	
 	@Inject
 	public TweetsKnowledgeCenter(ITweetsRepository tweetsRepository, TweetsIndex tweetsIndex)
@@ -59,6 +67,11 @@ public class TweetsKnowledgeCenter extends TweetsManager
 		this.subscribe(TWEETS_USER_FIRST_TWEET_QUERY_HANDLER, new UsersFirstTweetQueryHandler());
 		this.subscribe(TWEETS_NUMBER_BY_USER_QUERY_HANDLER, new TweetsNumberByUserQueryHandler());
 		this.subscribe(TWEETS_RETWEETS_AMOUNT, new TweetsRetweetsAmountQueryHandler());
+		this.subscribe(TWEETS_HASHTAGS_COUPLING_QUERY_HANDLER, new TweetsHashtagsCouplingQueryHandler());
+	}
+	
+	public ITweetsHashtagsCouplingQueryHandler getTweetsHashtagsCouplingQueryHandler(){
+		return (ITweetsHashtagsCouplingQueryHandler) this.getQueryHandler(TWEETS_HASHTAGS_COUPLING_QUERY_HANDLER);
 	}
 	
 	public ITweetsRetweetsAmountQueryHandler getTweetsRetweetsAmountQueryHandler(){
@@ -180,5 +193,14 @@ public class TweetsKnowledgeCenter extends TweetsManager
 
 	public String getTweetsRetweetsAmount(String id){
 		return getTweetsRetweetsAmountQueryHandler().getRetweetsAmount(new TweetId(id)).toString();
+	}
+
+	public String[] getTweetsHashtagsCoupling(int k){
+		List< Pair<String> > pairs = getTweetsHashtagsCouplingQueryHandler().getMostCoupled(k);
+		List<String> result = new ArrayList<String>();
+		for (Pair<String> pair : pairs )
+			result.add(pair.toString());
+		
+		return result.toArray(new String[0]);
 	}
 }
