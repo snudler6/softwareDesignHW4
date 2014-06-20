@@ -3,6 +3,7 @@ package ac.il.technion.twc.timeTests.partA;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,11 +17,18 @@ public class AncestorQueryHandlerTimeTest {
 	@Before
 	public void setUp() throws Exception {
 		String[] lines = TestUtils.generateTweets(TestUtils.MEDIUM_SAMPLE_LINES,new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.ENGLISH));
+		
+		
 		target.cleanPersistentData();
 		target.importData(lines);
 		target.setupIndex();
 	}
 
+	@After
+	public void tear()
+	{
+		target.cleanPersistentData();
+	}
 	
 	@Test(timeout = TestUtils.MEDIUM_SAMPLE_LINES / 2) // 0.5ms to tweet. 1,000,000 tweets . 500 seconds limit
 	public final void testMillionTweets() throws Exception {
