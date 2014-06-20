@@ -1,4 +1,4 @@
-package ac.il.technion.twc.impl.models;
+package ac.il.technion.twc.impl.models.partB;
 
 import java.util.HashMap;
 import java.util.List;
@@ -8,7 +8,7 @@ import ac.il.technion.twc.api.TweetId;
 import ac.il.technion.twc.api.interfaces.ITweetsRepository;
 import ac.il.technion.twc.api.models.RootTweet;
 import ac.il.technion.twc.api.models.Tweet;
-import ac.il.technion.twc.impl.services.ITweetsRetweetsAmountQueryHandler;
+import ac.il.technion.twc.impl.services.partB.ITweetsRetweetsAmountQueryHandler;
 
 public class TweetsRetweetsAmountQueryHandler implements ITweetsRetweetsAmountQueryHandler
 {

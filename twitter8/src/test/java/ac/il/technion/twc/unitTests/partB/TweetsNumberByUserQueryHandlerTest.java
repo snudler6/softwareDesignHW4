@@ -1,4 +1,4 @@
-package ac.il.technion.twc.unitTests;
+package ac.il.technion.twc.unitTests.partB;
 
 import static org.junit.Assert.assertEquals;
 
@@ -8,7 +8,7 @@ import org.mockito.Mockito;
 
 import ac.il.technion.twc.api.interfaces.ITweetsRepository;
 import ac.il.technion.twc.api.models.Tweet;
-import ac.il.technion.twc.impl.models.TweetsNumberByUserQueryHandler;
+import ac.il.technion.twc.impl.models.partB.TweetsNumberByUserQueryHandler;
 
 import com.googlecode.totallylazy.Lists;
 

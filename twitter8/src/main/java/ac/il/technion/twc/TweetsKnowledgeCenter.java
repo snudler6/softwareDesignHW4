@@ -12,18 +12,18 @@ import ac.il.technion.twc.api.TweetsManager;
 import ac.il.technion.twc.api.interfaces.ITweetsRepository;
 import ac.il.technion.twc.impl.models.TweetsHashtagsQueryHandler;
 import ac.il.technion.twc.impl.models.TweetsLifetimeQueryHandler;
-import ac.il.technion.twc.impl.models.TweetsNumberByUserQueryHandler;
-import ac.il.technion.twc.impl.models.TweetsRetweetsAmountQueryHandler;
 import ac.il.technion.twc.impl.models.TweetsTemporalHistogram;
 import ac.il.technion.twc.impl.models.partA.TweetsAncestorQueryHandler;
 import ac.il.technion.twc.impl.models.partA.TweetsHashtagsAppearencesQueryHandler;
 import ac.il.technion.twc.impl.models.partA.UsersFirstTweetQueryHandler;
+import ac.il.technion.twc.impl.models.partB.TweetsNumberByUserQueryHandler;
+import ac.il.technion.twc.impl.models.partB.TweetsRetweetsAmountQueryHandler;
 import ac.il.technion.twc.impl.services.ITweetsHashtagsQueryHandler;
 import ac.il.technion.twc.impl.services.ITweetsLifetimeQueryHandler;
-import ac.il.technion.twc.impl.services.ITweetsNumberByUserQueryHandler;
-import ac.il.technion.twc.impl.services.ITweetsRetweetsAmountQueryHandler;
 import ac.il.technion.twc.impl.services.partA.ITweetsAncestorQueryHandler;
 import ac.il.technion.twc.impl.services.partA.IUsersFirstTweetQueryHandler;
+import ac.il.technion.twc.impl.services.partB.ITweetsNumberByUserQueryHandler;
+import ac.il.technion.twc.impl.services.partB.ITweetsRetweetsAmountQueryHandler;
 
 import com.google.inject.Inject;
 

@@ -1,4 +1,4 @@
-package ac.il.technion.twc.impl.services;
+package ac.il.technion.twc.impl.services.partB;
 
 import ac.il.technion.twc.api.interfaces.IQueryHandler;
 
