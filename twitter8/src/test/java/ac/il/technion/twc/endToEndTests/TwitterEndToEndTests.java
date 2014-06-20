@@ -6,13 +6,13 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import ac.il.technion.twc.FuntionalityTester;
+import ac.il.technion.twc.oldFuntionalityTester;
 import ac.il.technion.twc.api.FileDataManager;
 import ac.il.technion.twc.api.interfaces.IDataManager;
 
 public class TwitterEndToEndTests
 {
-	FuntionalityTester target;
+	oldFuntionalityTester target;
 
 	public void importLine(String line) throws Exception
 	{
@@ -26,7 +26,7 @@ public class TwitterEndToEndTests
 	{
 		IDataManager repositoryDataManager = new FileDataManager("./src/test/resources/repositoryDataFile");
 		IDataManager indexDataManager = new FileDataManager("./src/test/resources/indexDataFile");
-		this.target = new FuntionalityTester(repositoryDataManager, indexDataManager);
+		this.target = new oldFuntionalityTester(repositoryDataManager, indexDataManager);
 		this.target.cleanPersistentData();
 	}
 

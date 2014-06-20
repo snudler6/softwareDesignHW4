@@ -20,7 +20,7 @@ import com.google.inject.Injector;
  * 
  * @author Gal Lalouche
  */
-public class FuntionalityTester
+public class oldFuntionalityTester
 {
 	private final Injector injector = Guice.createInjector(new TweetModule());
 	private IDataManager repositoryDataManager;
@@ -30,7 +30,7 @@ public class FuntionalityTester
 	/**
 	 * A default constructor.
 	 */
-	public FuntionalityTester()
+	public oldFuntionalityTester()
 	{
 		this.tweetsKnowledgeCenter = injector.getInstance(TweetsKnowledgeCenter.class);
 		this.repositoryDataManager = new FileDataManager("./src/main/resources/dataFile");
@@ -44,7 +44,7 @@ public class FuntionalityTester
 	 * @param repositoryDataManager
 	 * @param indexDataManager
 	 */
-	public FuntionalityTester(IDataManager repositoryDataManager, IDataManager indexDataManager)
+	public oldFuntionalityTester(IDataManager repositoryDataManager, IDataManager indexDataManager)
 	{
 		this.tweetsKnowledgeCenter = injector.getInstance(TweetsKnowledgeCenter.class);
 		this.repositoryDataManager = repositoryDataManager;

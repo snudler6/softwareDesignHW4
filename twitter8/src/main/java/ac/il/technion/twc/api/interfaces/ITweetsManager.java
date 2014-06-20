@@ -40,7 +40,7 @@ import java.text.ParseException;
  * }
  * 
  * 
- * public class FuntionalityTester {
+ * public class oldFuntionalityTester {
  * 	private IDataManager repositoryDataManager;
  * 	private IDataManager indexDataManager;
  * 	private TweetsKnowledgeCenter tweetsKnowledgeCenter;

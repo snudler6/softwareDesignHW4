@@ -19,13 +19,13 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import ac.il.technion.twc.FuntionalityTester;
+import ac.il.technion.twc.oldFuntionalityTester;
 import ac.il.technion.twc.api.FileDataManager;
 import ac.il.technion.twc.api.interfaces.IDataManager;
 
 public class TimeOutImportDataJsonTest
 {
-	FuntionalityTester target;
+	oldFuntionalityTester target;
 	IDataManager repositoryDataManager = new FileDataManager("./src/test/resources/repositoryMillionJsonTweetsHalfOfThemRetweets");
 	IDataManager indexDataManager = new FileDataManager("./src/test/resources/indexMillionJsonTweetsHalfOfThemRetweets");
 	String[] lines;
@@ -65,7 +65,7 @@ public class TimeOutImportDataJsonTest
 	@Before
 	public void setup() throws Exception
 	{
-		this.target = new FuntionalityTester(repositoryDataManager, indexDataManager);
+		this.target = new oldFuntionalityTester(repositoryDataManager, indexDataManager);
 
 		/* To create the big file */
 		Path filePath = new File("./src/test/resources/MillionJsonTweetsHalfOfThemRetweets").toPath();
