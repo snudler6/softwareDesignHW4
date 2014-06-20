@@ -1,4 +1,4 @@
-package ac.il.technion.twc;
+package ac.il.technion.twc.timeTests;
 
 import java.io.File;
 import java.io.FileNotFoundException;
