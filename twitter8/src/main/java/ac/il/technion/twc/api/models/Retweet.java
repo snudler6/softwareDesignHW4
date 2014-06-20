@@ -16,7 +16,7 @@ public class Retweet extends Tweet
 	private static final long serialVersionUID = -896428252557029362L;
 
 	private TweetId originalTweetId;
-
+	
 	/**
 	 * A constructor of Retweet.
 	 * 
@@ -30,6 +30,25 @@ public class Retweet extends Tweet
 	public Retweet(TweetId id, Date time, TweetId originalTweetId)
 	{
 		super(id, time, new LinkedList<String>());
+		if (originalTweetId.equals(id))
+			throw new IllegalArgumentException("A tweet cannot retweet itself");
+
+		this.originalTweetId = originalTweetId;
+	}
+
+	/**
+	 * A constructor of Retweet.
+	 * 
+	 * @param id
+	 *            the id of the tweet
+	 * @param time
+	 *            the time the tweet was made
+	 * @param originalTweetId
+	 *            the tweet to which this tweet was retweeted to
+	 */
+	public Retweet(TweetId id, String userId, Date time, TweetId originalTweetId)
+	{
+		super(id, userId, time, new LinkedList<String>());
 		if (originalTweetId.equals(id))
 			throw new IllegalArgumentException("A tweet cannot retweet itself");
 

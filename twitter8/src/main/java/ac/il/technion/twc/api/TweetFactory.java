@@ -88,20 +88,23 @@ public class TweetFactory
 		if (!jsonObject.isNull(JSON_TEXT))
 			text = jsonObject.getString(JSON_TEXT);
 		boolean isRetweet = !jsonObject.isNull(JSON_TWEETED_TWEET);
+		
+		String userId = jsonObject.getJSONObject("user").getString("id_dtr");
+		
 
 		if (isRetweet)
 		{
 			String tweetedTweetStr = jsonObject.getJSONObject(JSON_TWEETED_TWEET).getString(JSON_ID);
 			TweetId tweetedTweet = new TweetId(tweetedTweetStr);
 
-			return new Retweet(id, time, tweetedTweet);
+			return new Retweet(id, userId, time, tweetedTweet);
 		}
 		else
 		{
 			Extractor extractor = new Extractor();
 			List<String> hashtags = extractor.extractHashtags(text);
 
-			return new RootTweet(id, time, hashtags);
+			return new RootTweet(id, userId, time, hashtags);
 		}
 
 	}

@@ -25,6 +25,19 @@ public class RootTweet extends Tweet
 	{
 		super(id, time, hashtags);
 	}
+	
+	/**
+	 * A constructor of Tweet.
+	 * 
+	 * @param id
+	 *            the id of the tweet
+	 * @param time
+	 *            the time the tweet was made
+	 */
+	public RootTweet(TweetId id, String userId, Date time, List<String> hashtags)
+	{
+		super(id, userId, time, hashtags);
+	}
 
 	/**
 	 * Gets the difference between the latest known retweet time and this tweet

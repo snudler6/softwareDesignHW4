@@ -15,7 +15,7 @@ public abstract class Tweet extends AbstractTweet
 
 	private Date time;
 	private List<String> hashtags;
-
+	
 	/**
 	 * A constructor of Tweet.
 	 * 
@@ -27,6 +27,21 @@ public abstract class Tweet extends AbstractTweet
 	public Tweet(TweetId id, Date time, List<String> hashtags)
 	{
 		super(id, time);
+		this.time = time;
+		this.hashtags = hashtags;
+	}
+
+	/**
+	 * A constructor of Tweet.
+	 * 
+	 * @param id
+	 *            the id of the tweet
+	 * @param time
+	 *            the time the tweet was made
+	 */
+	public Tweet(TweetId id, String userId, Date time, List<String> hashtags)
+	{
+		super(id, userId, time);
 		this.time = time;
 		this.hashtags = hashtags;
 	}

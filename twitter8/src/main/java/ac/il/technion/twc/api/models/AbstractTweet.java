@@ -18,6 +18,8 @@ public abstract class AbstractTweet implements Serializable
 	protected int numRetweets;
 	protected Date latestRetweetTime;
 
+	private final String userId;
+
 	/**
 	 * Get the number of retweets
 	 * 
@@ -48,6 +50,27 @@ public abstract class AbstractTweet implements Serializable
 	 * @param latestRetweetTime
 	 *            the latest known retweet time
 	 */
+	public AbstractTweet(TweetId id, String userId, Date latestRetweetTime)
+	{
+		if (id == null)
+			throw new NullPointerException("id parameter is null");
+		if (latestRetweetTime == null)
+			throw new NullPointerException("latestRetweetTime parameter is null");
+
+		this.numRetweets = 0;
+		this.id = id;
+		this.latestRetweetTime = latestRetweetTime;
+		this.userId = userId;
+	}
+	
+	/**
+	 * A constructor of AbstractTweet.
+	 * 
+	 * @param id
+	 *            the id of the tweet
+	 * @param latestRetweetTime
+	 *            the latest known retweet time
+	 */
 	public AbstractTweet(TweetId id, Date latestRetweetTime)
 	{
 		if (id == null)
@@ -58,6 +81,7 @@ public abstract class AbstractTweet implements Serializable
 		this.numRetweets = 0;
 		this.id = id;
 		this.latestRetweetTime = latestRetweetTime;
+		this.userId = "";
 	}
 
 	/**
@@ -108,6 +132,10 @@ public abstract class AbstractTweet implements Serializable
 	public TweetId getId()
 	{
 		return id;
+	}
+
+	public String getUserId() {
+		return userId;
 	}
 
 	/**
