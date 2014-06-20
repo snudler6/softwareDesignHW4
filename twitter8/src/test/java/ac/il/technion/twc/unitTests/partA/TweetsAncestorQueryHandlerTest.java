@@ -1,4 +1,4 @@
-package ac.il.technion.twc.unitTests;
+package ac.il.technion.twc.unitTests.partA;
 
 import static org.junit.Assert.assertEquals;
 
@@ -10,7 +10,7 @@ import ac.il.technion.twc.api.TweetId;
 import ac.il.technion.twc.api.interfaces.ITweetsRepository;
 import ac.il.technion.twc.api.models.Retweet;
 import ac.il.technion.twc.api.models.RootTweet;
-import ac.il.technion.twc.impl.models.TweetsAncestorQueryHandler;
+import ac.il.technion.twc.impl.models.partA.TweetsAncestorQueryHandler;
 
 import com.googlecode.totallylazy.Lists;
 

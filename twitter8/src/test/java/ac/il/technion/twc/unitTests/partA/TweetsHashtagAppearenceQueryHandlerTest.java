@@ -1,4 +1,4 @@
-package ac.il.technion.twc.unitTests;
+package ac.il.technion.twc.unitTests.partA;
 
 import static org.junit.Assert.*;
 
@@ -11,8 +11,8 @@ import ac.il.technion.twc.api.interfaces.ITweetsRepository;
 import ac.il.technion.twc.api.models.Retweet;
 import ac.il.technion.twc.api.models.RootTweet;
 import ac.il.technion.twc.api.models.Tweet;
-import ac.il.technion.twc.impl.models.TweetsAncestorQueryHandler;
-import ac.il.technion.twc.impl.models.TweetsHashtagsAppearencesQueryHandler;
+import ac.il.technion.twc.impl.models.partA.TweetsAncestorQueryHandler;
+import ac.il.technion.twc.impl.models.partA.TweetsHashtagsAppearencesQueryHandler;
 
 import com.googlecode.totallylazy.Lists;
 

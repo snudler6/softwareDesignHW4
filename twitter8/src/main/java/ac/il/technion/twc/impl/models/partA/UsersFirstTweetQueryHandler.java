@@ -1,4 +1,4 @@
-package ac.il.technion.twc.impl.models;
+package ac.il.technion.twc.impl.models.partA;
 
 import java.util.HashMap;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.Map;
 import ac.il.technion.twc.api.TweetId;
 import ac.il.technion.twc.api.interfaces.ITweetsRepository;
 import ac.il.technion.twc.api.models.Tweet;
-import ac.il.technion.twc.impl.services.IUsersFirstTweetQueryHandler;
+import ac.il.technion.twc.impl.services.partA.IUsersFirstTweetQueryHandler;
  
 public class UsersFirstTweetQueryHandler implements IUsersFirstTweetQueryHandler
 {

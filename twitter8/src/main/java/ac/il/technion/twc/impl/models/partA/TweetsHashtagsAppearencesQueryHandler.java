@@ -1,9 +1,10 @@
-	package ac.il.technion.twc.impl.models;
+	package ac.il.technion.twc.impl.models.partA;
 
 import java.util.List;
 
 import ac.il.technion.twc.api.interfaces.ITweetsRepository;
 import ac.il.technion.twc.api.models.Tweet;
+import ac.il.technion.twc.impl.models.TweetsHashtagsQueryHandler;
 import ac.il.technion.twc.impl.services.ITweetsHashtagsQueryHandler;
 
 public class TweetsHashtagsAppearencesQueryHandler extends TweetsHashtagsQueryHandler implements
