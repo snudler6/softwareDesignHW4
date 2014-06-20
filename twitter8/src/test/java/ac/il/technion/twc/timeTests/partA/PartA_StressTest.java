@@ -1,8 +1,5 @@
 package ac.il.technion.twc.timeTests.partA;
 
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,10 +13,10 @@ public abstract class PartA_StressTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		String[] lines = TestUtils.generateTweets(TestUtils.MEDIUM_SAMPLE_LINES,new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.ENGLISH));
+		String[] jsonlines = TestUtils.generateTweets(TestUtils.MEDIUM_SAMPLE_LINES);
 				
 		target.cleanPersistentData();
-		target.importData(lines);
+		target.importDataJson(jsonlines);
 		target.setupIndex();
 	}
 

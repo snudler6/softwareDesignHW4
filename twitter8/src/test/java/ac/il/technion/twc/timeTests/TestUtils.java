@@ -28,17 +28,25 @@ public class TestUtils {
 	public static final int MEDIUM_SAMPLE_LINES = 10000;
 	public static final int LARGE_SAMPLE_LINES = 1000000;
 
-	public static String[] generateTweets(final int n,final SimpleDateFormat dateFormat) {
+	private static String JSONstringBuilder(String id,boolean isRetweet,String parent_id,String user){
+		String json = "{\"created_at\":\"Sun May 19 10:08:08 +0000 2013\",\"text\":\"Java is #bad language to program with\",\"id_str\":\"";
+		json = json + id + "\"," + "\"user\":{\"id_str\":\""+user+"\"}";
+		if(isRetweet)
+			json = json + ",\"retweeted_status\":{\"id_str\":\""+parent_id+"\"}";
+		json = json + "}";
+		return json;
+	}
+	
+	public static String[] generateTweets(final int n) {
 		final String[] tweets = new String[n];
 
-		tweets[0] = dateFormat.format(new Date(0)) + ", 0";
+		tweets[0] = JSONstringBuilder("0", false, null, "100");
 
 		for (int i = 1; i < n; ++i) {
-			tweets[i] = dateFormat.format(new Date(i)) + ", "
-					+ Integer.toString(i);
-
 			if (RANDOM_GEN.nextFloat() < RETWEETS_PORTION)
-				tweets[i] += ", " + RANDOM_GEN.nextInt(i);
+				tweets[i] = JSONstringBuilder(Integer.toString(i), true, Integer.toString(RANDOM_GEN.nextInt(i)), Integer.toString(i));
+			else
+				tweets[i] = JSONstringBuilder(Integer.toString(i), false,null, Integer.toString(i));
 		}
 		return tweets;
 	}
