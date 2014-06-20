@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import ac.il.technion.twc.timeTests.TestUtils;
 
-public class HashTagsAppearenceQueryHandlerTest extends PartA_StressTest{
+public class HashTagsAppearenceQueryHandlerTimeTest extends PartA_StressTest{
 
 
 	@Override
