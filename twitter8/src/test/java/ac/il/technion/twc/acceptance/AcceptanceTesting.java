@@ -38,12 +38,9 @@ public class AcceptanceTesting
 
 		target.setupIndex();
 
-//		old irrelevent tests, kept here for debugging reasons		
-//		assertArrayEquals(new String[] { "0,0", "0,0", "0,0", "0,0", "0,0", "0,0", "4,2" }, target.getDailyHistogram());
-
-		String json5 = "{\"created_at\":\"Sun May 19 10:08:08 +0000 2013\",\"text\":\"Java is #bad language to program with\",\"id_str\":\"5\",\"retweeted_status\":null}";
-		String json6 = "{\"created_at\":\"Sun May 19 10:08:09 +0000 2013\",\"id_str\":\"6\",\"retweeted_status\":{\"id_str\":\"5\"}}";
-		String json7 = "{\"created_at\":\"Sun May 19 10:08:08 +0000 2013\",\"text\":\"Java is #bad #good\",\"id_str\":\"7\",\"retweeted_status\":null}";
+		String json5 = "{\"created_at\":\"Sun May 19 10:08:08 +0000 2013\",\"text\":\"Java is #bad language to program with\",\"id_str\":\"5\",\"retweeted_status\":null,\"user\":{\"id_str\":\"100\"}}";
+		String json6 = "{\"created_at\":\"Sun May 19 10:08:09 +0000 2013\",\"id_str\":\"6\",\"retweeted_status\":{\"id_str\":\"5\"},\"user\":{\"id_str\":\"101\"}}";
+		String json7 = "{\"created_at\":\"Sun May 20 10:08:08 +0000 2013\",\"text\":\"Java is #bad #good\",\"id_str\":\"7\",\"retweeted_status\":null,\"user\":{\"id_str\":\"100\"}}";
 
 		lines = new String[] { json5, json6, json7 };
 
@@ -51,6 +48,7 @@ public class AcceptanceTesting
 
 		target.setupIndex();
 
+		//Part A tests
 		assertEquals("5", target.getOriginalTweetsId("5"));
 		assertEquals("5", target.getOriginalTweetsId("6"));
 		assertEquals("7", target.getOriginalTweetsId("7"));
@@ -59,12 +57,11 @@ public class AcceptanceTesting
 		assertEquals("1", target.countHashtagAppearances("good"));
 		assertEquals("2", target.countHashtagAppearances("bad"));
 		
-//		old irrelevent tests, kept here for debugging reasons		
-//		assertEquals("1000", target.getLifetimeOfTweets("5"));
-//		assertEquals("1", target.getHashtagPopularity("bad"));
-//		assertEquals("1000", target.getLifetimeOfTweets("1"));
-//		assertArrayEquals(new String[] { "3,1", "0,0", "0,0", "0,0", "0,0", "0,0", "4,2" }, target.getDailyHistogram());
-//		assertArrayEquals(new String[] { "0,0", "0,0", "0,0", "0,0", "0,0", "0,0", "2,2" }, target.getTemporalHistogram("05/04/2014 1:00:01", "05/04/2014 3:01:06"));
+		assertEquals("5", target.getFirstTweet("100"));
+		assertEquals("6", target.getFirstTweet("101"));
+		//Part B tests
+		
+		
 	}
 
 	@Test
@@ -91,12 +88,6 @@ public class AcceptanceTesting
 		assertEquals("5", target.getOriginalTweetsId("6"));
 		assertEquals("1", target.countHashtagAppearances("bad"));
 		
-//		old irrelevent tests, kept here for debugging reasons		
-//		assertEquals("3", target.getHashtagPopularity("bad"));
-//		assertEquals("3000", target.getLifetimeOfTweets("5"));
-//		assertArrayEquals(new String[] { "0,0", "0,0", "0,0", "0,0", "0,0", "0,0", "4,3" }, target.getDailyHistogram());
-//		assertArrayEquals(new String[] { "0,0", "0,0", "0,0", "0,0", "0,0", "0,0", "2,2" }, target.getTemporalHistogram("05/04/2014 1:00:01", "05/04/2014 01:00:02"));
-
 		lines = new String[] { "05/04/2014 01:00:10, 7, 5" };
 		
 		target.importData(lines);

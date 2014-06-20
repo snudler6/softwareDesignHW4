@@ -189,7 +189,7 @@ public class FunctionalityTester {
 	 * @throws Exception If it is not possible to complete the operation
 	 */
 	public String getFirstTweet(String userId) throws Exception {
-		throw new UnsupportedOperationException("Not implemented");
+		return this.tweetsKnowledgeCenter.getUserFirstTweet(userId);
 	}
 	
 	//GROUP B

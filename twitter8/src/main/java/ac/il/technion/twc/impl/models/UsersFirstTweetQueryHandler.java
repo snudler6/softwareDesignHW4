@@ -9,9 +9,6 @@ import ac.il.technion.twc.api.interfaces.ITweetsRepository;
 import ac.il.technion.twc.api.models.Tweet;
 import ac.il.technion.twc.impl.services.IUsersFirstTweetQueryHandler;
  
-/**
- * manages the popularity of hashtags
- */
 public class UsersFirstTweetQueryHandler implements IUsersFirstTweetQueryHandler
 {
 	
@@ -19,13 +16,6 @@ public class UsersFirstTweetQueryHandler implements IUsersFirstTweetQueryHandler
 	
 	Map<String, Tweet> firstTweetByUserId = new HashMap<>();
 
-	/**
-	 * Returns the popularity of the hashtag
-	 * 
-	 * @param hashtag the hashtag to get the popularity of
-	 * @return 0 if the hashtag does not exist. otherwise, the number of
-	 *         retweets to roottweets that contains the given hashtag 
-	 */
 	public TweetId getUsersFirstTweetId(String userId){
 		return firstTweetByUserId.get(userId).getId();
 	}

@@ -15,9 +15,11 @@ import ac.il.technion.twc.impl.models.TweetsHashtagsAppearencesQueryHandler;
 import ac.il.technion.twc.impl.models.TweetsHashtagsQueryHandler;
 import ac.il.technion.twc.impl.models.TweetsLifetimeQueryHandler;
 import ac.il.technion.twc.impl.models.TweetsTemporalHistogram;
+import ac.il.technion.twc.impl.models.UsersFirstTweetQueryHandler;
 import ac.il.technion.twc.impl.services.ITweetsAncestorQueryHandler;
 import ac.il.technion.twc.impl.services.ITweetsHashtagsQueryHandler;
 import ac.il.technion.twc.impl.services.ITweetsLifetimeQueryHandler;
+import ac.il.technion.twc.impl.services.IUsersFirstTweetQueryHandler;
 
 import com.google.inject.Inject;
 
@@ -29,8 +31,12 @@ public class TweetsKnowledgeCenter extends TweetsManager
 	final String TWEETS_LIFETIME_QUERY_HANDLER = "TWEETS_LIFETIME_QUERY_HANDLER";
 	final String TWEETS_TEMPORAL_HISTOGRAM_QUERY_HANDLER = "TWEETS_TEMPORAL_HISTOGRAM_QUERY_HANDLER";
 	final String TWEETS_HASHTAGS_QUERY_HANDLER = "TWEETS_HASHTAGS_QUERY_HANDLER";
+	
+	//Part A data handlers
 	final String TWEETS_HASHTAG_APPEARENCES_HANDLER = "TWEETS_HASHTAG_APPEARENCES_HANDLER"; 
 	final String TWEETS_ANCESTOR_QUERY_HANDLER = "TWEETS_ANCESTOR_QUERY_HANDLER";
+	final String TWEETS_USER_FIRST_TWEET_QUERY_HANDLER = "TWEETS_USER_FIRST_TWEET_QUERY_HANDLER";
+	
 	@Inject
 	public TweetsKnowledgeCenter(ITweetsRepository tweetsRepository, TweetsIndex tweetsIndex)
 	{
@@ -40,6 +46,7 @@ public class TweetsKnowledgeCenter extends TweetsManager
 		this.subscribe(TWEETS_HASHTAGS_QUERY_HANDLER, new TweetsHashtagsQueryHandler());
 		this.subscribe(TWEETS_HASHTAG_APPEARENCES_HANDLER, new TweetsHashtagsAppearencesQueryHandler());
 		this.subscribe(TWEETS_ANCESTOR_QUERY_HANDLER, new TweetsAncestorQueryHandler());
+		this.subscribe(TWEETS_USER_FIRST_TWEET_QUERY_HANDLER, new UsersFirstTweetQueryHandler());
 	}
 
 	public ITweetsLifetimeQueryHandler getTweetsLifetimeQueryHandler()
@@ -66,6 +73,10 @@ public class TweetsKnowledgeCenter extends TweetsManager
 		return (ITweetsAncestorQueryHandler) this.getQueryHandler(TWEETS_ANCESTOR_QUERY_HANDLER);
 	}
 
+	public IUsersFirstTweetQueryHandler getUserFirstTweetQueryHandler(){
+		return (IUsersFirstTweetQueryHandler) this.getQueryHandler(TWEETS_USER_FIRST_TWEET_QUERY_HANDLER);
+	}
+	
 	/**
 	 * Get life time of root tweet.
 	 * 
@@ -136,6 +147,11 @@ public class TweetsKnowledgeCenter extends TweetsManager
 	public String getAncestorTweetsId(String id)
 	{
 		return getTweetsAncestorQueryHandler().getAncestor(new TweetId(id)).toString();
+	}
+
+	public String getUserFirstTweet(String userId)
+	{
+		return getUserFirstTweetQueryHandler().getUsersFirstTweetId(userId).toString();
 	}
 	
 }

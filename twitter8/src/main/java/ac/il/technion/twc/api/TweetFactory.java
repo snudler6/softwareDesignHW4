@@ -87,11 +87,13 @@ public class TweetFactory
 		String text = "";
 		if (!jsonObject.isNull(JSON_TEXT))
 			text = jsonObject.getString(JSON_TEXT);
-		boolean isRetweet = !jsonObject.isNull(JSON_TWEETED_TWEET);
 		
-		String userId = jsonObject.getJSONObject("user").getString("id_dtr");
+		String userId = "";
+		if(!jsonObject.isNull("user"))
+			userId = jsonObject.getJSONObject("user").getString("id_str");
 		
 
+		boolean isRetweet = !jsonObject.isNull(JSON_TWEETED_TWEET);
 		if (isRetweet)
 		{
 			String tweetedTweetStr = jsonObject.getJSONObject(JSON_TWEETED_TWEET).getString(JSON_ID);

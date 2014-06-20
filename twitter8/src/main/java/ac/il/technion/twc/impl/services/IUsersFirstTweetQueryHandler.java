@@ -3,18 +3,16 @@ package ac.il.technion.twc.impl.services;
 import ac.il.technion.twc.api.TweetId;
 import ac.il.technion.twc.api.interfaces.IQueryHandler;
  
-/**
- * manages the popularity of hashtags
- */
+
 public interface IUsersFirstTweetQueryHandler extends IQueryHandler
 {
 
 	/**
-	 * Returns the popularity of the hashtag
+	 * Gets the id of the first tweet (by publication date) made by a user
 	 * 
-	 * @param hashtag the hashtag to get the popularity of
-	 * @return 0 if the hashtag does not exist. otherwise, the number of
-	 *         retweets to roottweets that contains the given hashtag 
+	 * @param userId the id of the user
+	 * @return The id of the user's first tweet
+	 * @throws Exception If it is not possible to complete the operation
 	 */
 	public TweetId getUsersFirstTweetId(String userId);
 }
