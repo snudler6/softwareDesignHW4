@@ -1,24 +1,42 @@
 	package ac.il.technion.twc.impl.models.partA;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import ac.il.technion.twc.api.interfaces.ITweetsRepository;
 import ac.il.technion.twc.api.models.Tweet;
-import ac.il.technion.twc.impl.models.TweetsHashtagsQueryHandler;
-import ac.il.technion.twc.impl.services.ITweetsHashtagsQueryHandler;
+import ac.il.technion.twc.impl.services.partA.ITweetsHashtagsAppearence;
 
-public class TweetsHashtagsAppearencesQueryHandler extends TweetsHashtagsQueryHandler implements
-		ITweetsHashtagsQueryHandler {
+public class TweetsHashtagsAppearencesQueryHandler implements ITweetsHashtagsAppearence{
 
 	
 	private static final long serialVersionUID = 4958073188101045085L;
 
-	
-	public TweetsHashtagsAppearencesQueryHandler(){
-		super();
+	private Map<String, Integer> hashtags;
+
+	public TweetsHashtagsAppearencesQueryHandler()
+	{
+		this.hashtags = new HashMap<String, Integer>();
 	}
 	
-
+	@Override
+	public Integer getPopularity(String hashtag)
+	{
+		Integer popularity = hashtags.get(hashtag);
+		if (popularity == null)
+			return 0;
+		return popularity;
+	}
+	
+	private void addHashtag(String hashtag)
+	{
+		Integer popularity = 1;
+		if (hashtags.containsKey(hashtag))
+			popularity += hashtags.get(hashtag);
+		hashtags.put(hashtag, popularity);
+	}
+	
 	private void addPopularityToHashTags(List<String> hashtags){
 		for ( String hashtag : hashtags){
 			addHashtag(hashtag);
