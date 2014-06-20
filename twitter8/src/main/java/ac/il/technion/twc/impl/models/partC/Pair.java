@@ -1,5 +1,8 @@
 package ac.il.technion.twc.impl.models.partC;
 
+import java.util.Comparator;
+import java.util.Map;
+
 public class Pair<T> {
     private final T first;
     private final T second;
@@ -43,6 +46,25 @@ public class Pair<T> {
 
     public T getSecond() {
     	return second;
+    }
+    
+    
+    public class ValueComparator implements Comparator<Pair<T>> {
+
+        Map<Pair<T>, Integer> base;
+        
+        public ValueComparator(Map<Pair<T>, Integer> base) {
+            this.base = base;
+        }
+
+        // Note: this comparator imposes orderings that are inconsistent with equals.    
+        public int compare(Pair<T> a, Pair<T> b) {
+            if (base.get(a) >= base.get(b)) {
+                return -1;
+            } else {
+                return 1;
+            } // returning 0 would merge keys
+        }
     }
 
 }
