@@ -2,7 +2,7 @@ package ac.il.technion.twc.impl.services;
 
 import ac.il.technion.twc.api.interfaces.IQueryHandler;
 
-public interface ITweetsNumberByUser  extends IQueryHandler {
+public interface ITweetsNumberByUserQueryHandler  extends IQueryHandler {
 
 	/**
 	 * Gets the number of tweets or retweets made by a specific user

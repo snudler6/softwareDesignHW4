@@ -6,15 +6,15 @@ import java.util.Map;
 
 import ac.il.technion.twc.api.interfaces.ITweetsRepository;
 import ac.il.technion.twc.api.models.Tweet;
-import ac.il.technion.twc.impl.services.ITweetsNumberByUser;
+import ac.il.technion.twc.impl.services.ITweetsNumberByUserQueryHandler;
 
-public class TweetsNumberByUser implements ITweetsNumberByUser {
+public class TweetsNumberByUserQueryHandler implements ITweetsNumberByUserQueryHandler {
 
 	private static final long serialVersionUID = 7508809411352087708L;
 
 	Map<String, Integer> tweetsPerUser;
 
-	public TweetsNumberByUser() {
+	public TweetsNumberByUserQueryHandler() {
 		tweetsPerUser = new HashMap<String, Integer>();
 	}
 
