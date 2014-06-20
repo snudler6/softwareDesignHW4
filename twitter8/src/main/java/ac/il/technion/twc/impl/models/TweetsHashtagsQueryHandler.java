@@ -56,7 +56,7 @@ public class TweetsHashtagsQueryHandler implements ITweetsHashtagsQueryHandler
 		hashtags.put(hashtag, popularity);
 	}
 
-	private void addPopularityToHashTags(List<String> hashtags, int numRetweets)
+	protected void addPopularityToHashTags(List<String> hashtags, int numRetweets)
 	{
 		for (String hashtag : hashtags)
 		{
