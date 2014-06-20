@@ -23,6 +23,7 @@ public class Pair<T> implements Serializable {
 		return (hashFirst + hashSecond) * hashSecond + hashFirst;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public boolean equals(Object other) {
 		if (other instanceof Pair) {
 			Pair otherPair = (Pair) other;
