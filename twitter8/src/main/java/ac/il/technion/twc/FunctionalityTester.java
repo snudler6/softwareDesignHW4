@@ -293,5 +293,8 @@ public class FunctionalityTester {
 	 */
 	public void cleanPersistentData() {
 		this.repositoryDataManager.cleanData();
-		this.indexDataManager.cleanData();	}
+		this.indexDataManager.cleanData();	
+	}
+	
+	
 }
