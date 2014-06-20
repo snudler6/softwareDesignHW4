@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import ac.il.technion.twc.FuntionalityTester;
+import ac.il.technion.twc.oldFuntionalityTester;
 
 public class PersistencyRunThisFirst {
 	
 	public static void main(String[] args) throws Exception {
-		FuntionalityTester $ = new FuntionalityTester();
+		oldFuntionalityTester $ = new oldFuntionalityTester();
 		$.cleanPersistentData();
 		try (Scanner scanner = new Scanner(PersistencyRunThisFirst.class.getResourceAsStream("small_sample.txt"))) {
 			List<String> lines = new ArrayList<>();

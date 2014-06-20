@@ -6,20 +6,20 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import ac.il.technion.twc.FuntionalityTester;
+import ac.il.technion.twc.oldFuntionalityTester;
 import ac.il.technion.twc.api.FileDataManager;
 import ac.il.technion.twc.api.interfaces.IDataManager;
 
 public class AcceptanceTesting
 {
-	FuntionalityTester target;
+	oldFuntionalityTester target;
 
 	@Before
 	public void setup() throws Exception
 	{
 		IDataManager indexDataManager = new FileDataManager("./src/test/resources/indexDataFile");
 		IDataManager repositoryDataManager = new FileDataManager("./src/test/resources/repositoryDataFile");
-		this.target = new FuntionalityTester(repositoryDataManager, indexDataManager);
+		this.target = new oldFuntionalityTester(repositoryDataManager, indexDataManager);
 		this.target.cleanPersistentData();
 	}
 

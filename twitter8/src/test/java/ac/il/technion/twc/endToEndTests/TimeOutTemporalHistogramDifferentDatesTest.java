@@ -12,13 +12,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import ac.il.technion.twc.FuntionalityTester;
+import ac.il.technion.twc.oldFuntionalityTester;
 import ac.il.technion.twc.api.FileDataManager;
 import ac.il.technion.twc.api.interfaces.IDataManager;
 
 public class TimeOutTemporalHistogramDifferentDatesTest
 {
-	FuntionalityTester target;
+	oldFuntionalityTester target;
 	IDataManager repositoryDataManager = new FileDataManager("./src/test/resources/repositoryMillionTweetsDiffDates");
 	IDataManager indexDataManager = new FileDataManager("./src/test/resources/indexMillionTweetsDiffDates");
 	Random rand = new Random();
@@ -28,7 +28,7 @@ public class TimeOutTemporalHistogramDifferentDatesTest
 	@Before
 	public void setup() throws Exception
 	{
-		this.target = new FuntionalityTester(repositoryDataManager, indexDataManager);
+		this.target = new oldFuntionalityTester(repositoryDataManager, indexDataManager);
 
 		/* To create the big file */
 		Path filePath = new File("./src/test/resources/MillionTweetsDiffDates").toPath();

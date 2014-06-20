@@ -13,13 +13,13 @@ import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 
-import ac.il.technion.twc.FuntionalityTester;
+import ac.il.technion.twc.oldFuntionalityTester;
 import ac.il.technion.twc.api.FileDataManager;
 import ac.il.technion.twc.api.interfaces.IDataManager;
 
 public class TwitterEndToEndGetHashtagPopularityTests
 {
-	FuntionalityTester target;
+	oldFuntionalityTester target;
 
 	private Date fromUTC(int year, int month, int date, int hrs, int min, int sec)
 	{
@@ -88,7 +88,7 @@ public class TwitterEndToEndGetHashtagPopularityTests
 	{
 		IDataManager repositoryDataManager = new FileDataManager("./src/test/resources/repositoryDataFile");
 		IDataManager indexDataManager = new FileDataManager("./src/test/resources/indexDataFile");
-		this.target = new FuntionalityTester(repositoryDataManager, indexDataManager);
+		this.target = new oldFuntionalityTester(repositoryDataManager, indexDataManager);
 		this.target.cleanPersistentData();
 	}
 

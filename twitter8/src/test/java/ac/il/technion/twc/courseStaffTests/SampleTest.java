@@ -6,11 +6,11 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import ac.il.technion.twc.FuntionalityTester;
+import ac.il.technion.twc.oldFuntionalityTester;
 
 public class SampleTest
 {
-	FuntionalityTester $ = new FuntionalityTester();
+	oldFuntionalityTester $ = new oldFuntionalityTester();
 
 	@Before
 	public void setup() throws Exception
