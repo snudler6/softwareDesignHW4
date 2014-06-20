@@ -29,7 +29,7 @@ public abstract class PartA_StressTest {
 		target.cleanPersistentData();
 	}
 	
-	@Test(timeout = TestUtils.LARGE_SAMPLE_LINES / 2) // 0.5ms to tweet. 1,000,000 tweets . 500 seconds limit
+	@Test(timeout = TestUtils.LARGE_SAMPLE_LINES / 2) // 0.5ms to tweet. 10,000 tweets . 5 seconds limit
 	public abstract void testMediumSizeTweets() throws Exception;	
 
 }
