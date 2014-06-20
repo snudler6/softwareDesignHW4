@@ -2,6 +2,7 @@ package ac.il.technion.twc.api;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -73,6 +74,7 @@ public class TweetFactory
 
 		JSONObject jsonObject = new JSONObject(string);
 
+		//getting tweet date
 		String timeStr = jsonObject.getString(JSON_CREATED_AT);
 		Date time;
 		try
@@ -83,16 +85,15 @@ public class TweetFactory
 		{
 			throw new JSONException("The time " + timeStr + "is not in the correct format");
 		}
+		//getting tweet id
 		TweetId id = new TweetId(jsonObject.getString(JSON_ID));
-		String text = "";
-		if (!jsonObject.isNull(JSON_TEXT))
-			text = jsonObject.getString(JSON_TEXT);
 		
+		//getting user id
 		String userId = "";
 		if(!jsonObject.isNull("user"))
 			userId = jsonObject.getJSONObject("user").getString("id_str");
 		
-
+		//checking whether the tweet is a retweet
 		boolean isRetweet = !jsonObject.isNull(JSON_TWEETED_TWEET);
 		if (isRetweet)
 		{
@@ -103,8 +104,11 @@ public class TweetFactory
 		}
 		else
 		{
+			//extracting the hashtags from the tweet text
 			Extractor extractor = new Extractor();
-			List<String> hashtags = extractor.extractHashtags(text);
+			List<String> hashtags = new ArrayList<String>();
+			if ( !jsonObject.isNull(JSON_TEXT) )
+				hashtags = extractor.extractHashtags(jsonObject.getString(JSON_TEXT));
 
 			return new RootTweet(id, userId, time, hashtags);
 		}
