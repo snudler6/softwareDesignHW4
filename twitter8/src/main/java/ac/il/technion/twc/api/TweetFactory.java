@@ -93,6 +93,12 @@ public class TweetFactory
 		if(!jsonObject.isNull("user"))
 			userId = jsonObject.getJSONObject("user").getString("id_str");
 		
+		//extracting the hashtags from the tweet text
+		Extractor extractor = new Extractor();
+		List<String> hashtags = new ArrayList<String>();
+		if ( !jsonObject.isNull(JSON_TEXT) )
+			hashtags = extractor.extractHashtags(jsonObject.getString(JSON_TEXT));
+		
 		//checking whether the tweet is a retweet
 		boolean isRetweet = !jsonObject.isNull(JSON_TWEETED_TWEET);
 		if (isRetweet)
@@ -100,16 +106,10 @@ public class TweetFactory
 			String tweetedTweetStr = jsonObject.getJSONObject(JSON_TWEETED_TWEET).getString(JSON_ID);
 			TweetId tweetedTweet = new TweetId(tweetedTweetStr);
 
-			return new Retweet(id, userId, time, tweetedTweet);
+			return new Retweet(id, userId, time, tweetedTweet, hashtags);
 		}
 		else
 		{
-			//extracting the hashtags from the tweet text
-			Extractor extractor = new Extractor();
-			List<String> hashtags = new ArrayList<String>();
-			if ( !jsonObject.isNull(JSON_TEXT) )
-				hashtags = extractor.extractHashtags(jsonObject.getString(JSON_TEXT));
-
 			return new RootTweet(id, userId, time, hashtags);
 		}
 

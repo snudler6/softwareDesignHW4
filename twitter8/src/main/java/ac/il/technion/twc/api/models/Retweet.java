@@ -2,6 +2,7 @@ package ac.il.technion.twc.api.models;
 
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 
 import ac.il.technion.twc.api.TweetId;
 
@@ -46,9 +47,9 @@ public class Retweet extends Tweet
 	 * @param originalTweetId
 	 *            the tweet to which this tweet was retweeted to
 	 */
-	public Retweet(TweetId id, String userId, Date time, TweetId originalTweetId)
+	public Retweet(TweetId id, String userId, Date time, TweetId originalTweetId, List<String> hashtags)
 	{
-		super(id, userId, time, new LinkedList<String>());
+		super(id, userId, time, hashtags);
 		if (originalTweetId.equals(id))
 			throw new IllegalArgumentException("A tweet cannot retweet itself");
 
