@@ -17,6 +17,8 @@ public class AncestorQueryHandlerTimeTest {
 	@Before
 	public void setUp() throws Exception {
 		String[] lines = TestUtils.generateTweets(TestUtils.MEDIUM_SAMPLE_LINES,new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.ENGLISH));
+		
+		
 		target.cleanPersistentData();
 		target.importData(lines);
 		target.setupIndex();
