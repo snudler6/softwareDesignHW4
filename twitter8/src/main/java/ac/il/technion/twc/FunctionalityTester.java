@@ -143,7 +143,7 @@ public class FunctionalityTester {
 	 * @throws Exception If it is not possible to complete the operation
 	 */
 	public String getOriginalTweetsId(String tweetId) throws Exception {
-		throw new UnsupportedOperationException("Not implemented");
+		return tweetsKnowledgeCenter.getAncestorTweetsId(tweetId);
 	}
 	
 	/**
