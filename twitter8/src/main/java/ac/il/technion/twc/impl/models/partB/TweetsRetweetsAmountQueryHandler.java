@@ -24,8 +24,10 @@ public class TweetsRetweetsAmountQueryHandler implements ITweetsRetweetsAmountQu
 	{
 		for(Tweet tweet : tweets)
 			if(!(tweet instanceof RootTweet)){
-				TweetId rootTweetId = tweetsRepository.getRootTweet(tweet)
-								.getId();
+				final RootTweet rootTweet = tweetsRepository.getRootTweet(tweet);
+				if( rootTweet == null )
+					continue;
+				TweetId rootTweetId = rootTweet.getId();
 				if(retweetsAmountByTweetId.containsKey(rootTweetId))
 					retweetsAmountByTweetId.put(
 							rootTweetId, retweetsAmountByTweetId
