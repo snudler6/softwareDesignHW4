@@ -2,12 +2,10 @@ package ac.il.technion.twc.timeTests;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.TimeZone;
