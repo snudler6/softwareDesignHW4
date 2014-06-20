@@ -17,7 +17,10 @@ public class UsersFirstTweetQueryHandler implements IUsersFirstTweetQueryHandler
 	Map<String, Tweet> firstTweetByUserId = new HashMap<>();
 
 	public TweetId getUsersFirstTweetId(String userId){
-		return firstTweetByUserId.get(userId).getId();
+		final Tweet tweet = firstTweetByUserId.get(userId);
+		if( tweet == null )
+			return null;
+		return tweet.getId();
 	}
 
 	@Override
