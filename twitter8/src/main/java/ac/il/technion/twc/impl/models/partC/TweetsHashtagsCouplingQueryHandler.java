@@ -1,5 +1,6 @@
-	package ac.il.technion.twc.impl.models.partC;
+package ac.il.technion.twc.impl.models.partC;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -17,9 +18,10 @@ public class TweetsHashtagsCouplingQueryHandler implements ITweetsHashtagsCoupli
 	
 	private static final long serialVersionUID = 4958073188101045085L;
 	
-	 public static class ValueComparator<T> implements Comparator<Pair<T>> {
+	 public static class ValueComparator<T> implements Serializable, Comparator<Pair<T>> {
 
-	        Map<Pair<T>, Integer> base;
+		private static final long serialVersionUID = -3909198429646950164L;
+			Map<Pair<T>, Integer> base;
 	        
 	        public ValueComparator(Map<Pair<T>, Integer> base) {
 	            this.base = base;
