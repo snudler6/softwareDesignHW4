@@ -1,28 +1,34 @@
 package ac.il.technion.twc.acceptance;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import ac.il.technion.twc.oldFuntionalityTester;
+import ac.il.technion.twc.FunctionalityTester;
 import ac.il.technion.twc.api.FileDataManager;
 import ac.il.technion.twc.api.interfaces.IDataManager;
 
 public class AcceptanceTesting
 {
-	oldFuntionalityTester target;
+	FunctionalityTester target;
 
 	@Before
 	public void setup() throws Exception
 	{
 		IDataManager indexDataManager = new FileDataManager("./src/test/resources/indexDataFile");
 		IDataManager repositoryDataManager = new FileDataManager("./src/test/resources/repositoryDataFile");
-		this.target = new oldFuntionalityTester(repositoryDataManager, indexDataManager);
+		this.target = new FunctionalityTester(repositoryDataManager, indexDataManager);
 		this.target.cleanPersistentData();
 	}
 
+	@After
+	public void clear() throws Exception
+	{
+		this.target.cleanPersistentData();		
+	}
+	
 	@Test
 	public void AcceptanceTest_1() throws Exception
 	{
@@ -32,11 +38,12 @@ public class AcceptanceTesting
 
 		target.setupIndex();
 
-		assertArrayEquals(new String[] { "0,0", "0,0", "0,0", "0,0", "0,0", "0,0", "4,2" }, target.getDailyHistogram());
+//		old irrelevent tests, kept here for debugging reasons		
+//		assertArrayEquals(new String[] { "0,0", "0,0", "0,0", "0,0", "0,0", "0,0", "4,2" }, target.getDailyHistogram());
 
 		String json5 = "{\"created_at\":\"Sun May 19 10:08:08 +0000 2013\",\"text\":\"Java is #bad language to program with\",\"id_str\":\"5\",\"retweeted_status\":null}";
 		String json6 = "{\"created_at\":\"Sun May 19 10:08:09 +0000 2013\",\"id_str\":\"6\",\"retweeted_status\":{\"id_str\":\"5\"}}";
-		String json7 = "{\"created_at\":\"Sun May 19 10:08:08 +0000 2013\",\"id_str\":\"7\",\"retweeted_status\":null}";
+		String json7 = "{\"created_at\":\"Sun May 19 10:08:08 +0000 2013\",\"text\":\"Java is #bad #good\",\"id_str\":\"7\",\"retweeted_status\":null}";
 
 		lines = new String[] { json5, json6, json7 };
 
@@ -44,12 +51,17 @@ public class AcceptanceTesting
 
 		target.setupIndex();
 
-		assertEquals("1000", target.getLifetimeOfTweets("5"));
-		assertEquals("1", target.getHashtagPopularity("bad"));
-		assertEquals("1000", target.getLifetimeOfTweets("1"));
+		
+		assertEquals("0", target.countHashtagAppearances("nonExistingHashtag"));
+		assertEquals("1", target.countHashtagAppearances("good"));
+		assertEquals("2", target.countHashtagAppearances("bad"));
 
-		assertArrayEquals(new String[] { "3,1", "0,0", "0,0", "0,0", "0,0", "0,0", "4,2" }, target.getDailyHistogram());
-		assertArrayEquals(new String[] { "0,0", "0,0", "0,0", "0,0", "0,0", "0,0", "2,2" }, target.getTemporalHistogram("05/04/2014 1:00:01", "05/04/2014 3:01:06"));
+//		old irrelevent tests, kept here for debugging reasons		
+//		assertEquals("1000", target.getLifetimeOfTweets("5"));
+//		assertEquals("1", target.getHashtagPopularity("bad"));
+//		assertEquals("1000", target.getLifetimeOfTweets("1"));
+//		assertArrayEquals(new String[] { "3,1", "0,0", "0,0", "0,0", "0,0", "0,0", "4,2" }, target.getDailyHistogram());
+//		assertArrayEquals(new String[] { "0,0", "0,0", "0,0", "0,0", "0,0", "0,0", "2,2" }, target.getTemporalHistogram("05/04/2014 1:00:01", "05/04/2014 3:01:06"));
 	}
 
 	@Test
@@ -61,6 +73,8 @@ public class AcceptanceTesting
 
 		target.setupIndex();
 
+		assertEquals("0", target.countHashtagAppearances("bad"));
+		
 		String json5 = "{\"created_at\":\"Sat Apr 5 01:00:00 +0000 2014\",\"text\":\"Java is #bad language to program with\",\"id_str\":\"5\",\"retweeted_status\":null}";
 		String json6 = "{\"created_at\":\"Sat Apr 5 01:00:03 +0000 2014\",\"id_str\":\"6\",\"retweeted_status\":{\"id_str\":\"2\"}}";
 
@@ -70,17 +84,23 @@ public class AcceptanceTesting
 
 		target.setupIndex();
 
-		assertEquals("3", target.getHashtagPopularity("bad"));
-		assertEquals("3000", target.getLifetimeOfTweets("5"));
-		assertArrayEquals(new String[] { "0,0", "0,0", "0,0", "0,0", "0,0", "0,0", "4,3" }, target.getDailyHistogram());
-		assertArrayEquals(new String[] { "0,0", "0,0", "0,0", "0,0", "0,0", "0,0", "2,2" }, target.getTemporalHistogram("05/04/2014 1:00:01", "05/04/2014 01:00:02"));
+		assertEquals("1", target.countHashtagAppearances("bad"));
+		
+//		old irrelevent tests, kept here for debugging reasons		
+//		assertEquals("3", target.getHashtagPopularity("bad"));
+//		assertEquals("3000", target.getLifetimeOfTweets("5"));
+//		assertArrayEquals(new String[] { "0,0", "0,0", "0,0", "0,0", "0,0", "0,0", "4,3" }, target.getDailyHistogram());
+//		assertArrayEquals(new String[] { "0,0", "0,0", "0,0", "0,0", "0,0", "0,0", "2,2" }, target.getTemporalHistogram("05/04/2014 1:00:01", "05/04/2014 01:00:02"));
 
 		lines = new String[] { "05/04/2014 01:00:10, 7, 5" };
-
+		
 		target.importData(lines);
 
 		target.setupIndex();
 
-		assertEquals("10000", target.getLifetimeOfTweets("5"));
+		assertEquals("1", target.countHashtagAppearances("bad"));
+		
+//		old irrelevent tests, kept here for debugging reasons		
+//		assertEquals("10000", target.getLifetimeOfTweets("5"));
 	}
 }
