@@ -134,6 +134,11 @@ public abstract class AbstractTweet implements Serializable
 		return id;
 	}
 
+	/**
+	 * Get the tweet's user id.
+	 * 
+	 * @return the tweet's user id.
+	 */
 	public String getUserId() {
 		return userId;
 	}
