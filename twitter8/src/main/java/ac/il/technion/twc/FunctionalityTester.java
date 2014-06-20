@@ -213,7 +213,7 @@ public class FunctionalityTester {
 	 * @return The number of retweets
 	 */
 	public String numberOfRetweets(String tweetId) {
-		throw new UnsupportedOperationException("Not implemented");
+		return this.tweetsKnowledgeCenter.getTweetsRetweetsAmount(tweetId);
 	}
 	
 	/**
@@ -234,7 +234,7 @@ public class FunctionalityTester {
 	 * @return The number of tweets made by the user
 	 */
 	public String numberTweetsByUser(String usersId) {
-		throw new UnsupportedOperationException("Not implemented");
+		return tweetsKnowledgeCenter.getTweetsNumberByUser(usersId);
 	}
 	
 	// GROUP C

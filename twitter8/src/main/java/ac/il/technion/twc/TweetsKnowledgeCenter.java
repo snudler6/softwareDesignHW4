@@ -12,12 +12,16 @@ import ac.il.technion.twc.api.TweetsManager;
 import ac.il.technion.twc.api.interfaces.ITweetsRepository;
 import ac.il.technion.twc.impl.models.TweetsHashtagsQueryHandler;
 import ac.il.technion.twc.impl.models.TweetsLifetimeQueryHandler;
+import ac.il.technion.twc.impl.models.TweetsNumberByUserQueryHandler;
+import ac.il.technion.twc.impl.models.TweetsRetweetsAmountQueryHandler;
 import ac.il.technion.twc.impl.models.TweetsTemporalHistogram;
 import ac.il.technion.twc.impl.models.partA.TweetsAncestorQueryHandler;
 import ac.il.technion.twc.impl.models.partA.TweetsHashtagsAppearencesQueryHandler;
 import ac.il.technion.twc.impl.models.partA.UsersFirstTweetQueryHandler;
 import ac.il.technion.twc.impl.services.ITweetsHashtagsQueryHandler;
 import ac.il.technion.twc.impl.services.ITweetsLifetimeQueryHandler;
+import ac.il.technion.twc.impl.services.ITweetsNumberByUserQueryHandler;
+import ac.il.technion.twc.impl.services.ITweetsRetweetsAmountQueryHandler;
 import ac.il.technion.twc.impl.services.partA.ITweetsAncestorQueryHandler;
 import ac.il.technion.twc.impl.services.partA.IUsersFirstTweetQueryHandler;
 
@@ -37,6 +41,11 @@ public class TweetsKnowledgeCenter extends TweetsManager
 	final String TWEETS_ANCESTOR_QUERY_HANDLER = "TWEETS_ANCESTOR_QUERY_HANDLER";
 	final String TWEETS_USER_FIRST_TWEET_QUERY_HANDLER = "TWEETS_USER_FIRST_TWEET_QUERY_HANDLER";
 	
+	//Part B data handlers
+	final String TWEETS_NUMBER_BY_USER_QUERY_HANDLER = "TWEETS_NUMBER_BY_USER_QUERY_HANDLER";
+	final String TWEETS_RETWEETS_AMOUNT = "TWEETS_RETWEETS_AMOUNT";
+	
+	
 	@Inject
 	public TweetsKnowledgeCenter(ITweetsRepository tweetsRepository, TweetsIndex tweetsIndex)
 	{
@@ -47,8 +56,18 @@ public class TweetsKnowledgeCenter extends TweetsManager
 		this.subscribe(TWEETS_HASHTAG_APPEARENCES_HANDLER, new TweetsHashtagsAppearencesQueryHandler());
 		this.subscribe(TWEETS_ANCESTOR_QUERY_HANDLER, new TweetsAncestorQueryHandler());
 		this.subscribe(TWEETS_USER_FIRST_TWEET_QUERY_HANDLER, new UsersFirstTweetQueryHandler());
+		this.subscribe(TWEETS_NUMBER_BY_USER_QUERY_HANDLER, new TweetsNumberByUserQueryHandler());
+		this.subscribe(TWEETS_RETWEETS_AMOUNT, new TweetsRetweetsAmountQueryHandler());
+	}
+	
+	public ITweetsRetweetsAmountQueryHandler getTweetsRetweetsAmountQueryHandler(){
+		return (ITweetsRetweetsAmountQueryHandler) this.getQueryHandler(TWEETS_RETWEETS_AMOUNT);
 	}
 
+	public ITweetsNumberByUserQueryHandler getTweetsNumberByUserQueryHandler(){		
+		return (ITweetsNumberByUserQueryHandler) this.getQueryHandler(TWEETS_NUMBER_BY_USER_QUERY_HANDLER);
+	}
+	
 	public ITweetsLifetimeQueryHandler getTweetsLifetimeQueryHandler()
 	{
 		return (ITweetsLifetimeQueryHandler) this.getQueryHandler(TWEETS_LIFETIME_QUERY_HANDLER);
@@ -153,5 +172,12 @@ public class TweetsKnowledgeCenter extends TweetsManager
 	{
 		return getUserFirstTweetQueryHandler().getUsersFirstTweetId(userId).toString();
 	}
-	
+
+	public String getTweetsNumberByUser(String user){
+		return getTweetsNumberByUserQueryHandler().getTweetsNumberByUser(user);
+	}
+
+	public String getTweetsRetweetsAmount(String id){
+		return getTweetsRetweetsAmountQueryHandler().getRetweetsAmount(new TweetId(id)).toString();
+	}
 }
