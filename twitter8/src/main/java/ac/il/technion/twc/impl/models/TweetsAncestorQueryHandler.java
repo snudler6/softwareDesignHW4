@@ -27,7 +27,9 @@ public class TweetsAncestorQueryHandler implements ITweetsAncestorQueryHandler
 	{
 		for (Tweet tweet : tweets)
 		{
-			tweetsAncestor.put(tweet.getId(), tweetsRepository.getRootTweet(tweet).getId());
+			final Tweet originalTweet = tweetsRepository.getRootTweet(tweet);
+			if (originalTweet != null)
+				tweetsAncestor.put(tweet.getId(), originalTweet.getId());
 		}
 	}
 	

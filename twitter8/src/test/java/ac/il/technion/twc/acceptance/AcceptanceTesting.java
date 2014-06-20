@@ -51,11 +51,14 @@ public class AcceptanceTesting
 
 		target.setupIndex();
 
+		assertEquals("5", target.getOriginalTweetsId("5"));
+		assertEquals("5", target.getOriginalTweetsId("6"));
+		assertEquals("7", target.getOriginalTweetsId("7"));
 		
 		assertEquals("0", target.countHashtagAppearances("nonExistingHashtag"));
 		assertEquals("1", target.countHashtagAppearances("good"));
 		assertEquals("2", target.countHashtagAppearances("bad"));
-
+		
 //		old irrelevent tests, kept here for debugging reasons		
 //		assertEquals("1000", target.getLifetimeOfTweets("5"));
 //		assertEquals("1", target.getHashtagPopularity("bad"));
@@ -84,6 +87,8 @@ public class AcceptanceTesting
 
 		target.setupIndex();
 
+		assertEquals("5", target.getOriginalTweetsId("5"));
+		assertEquals("5", target.getOriginalTweetsId("6"));
 		assertEquals("1", target.countHashtagAppearances("bad"));
 		
 //		old irrelevent tests, kept here for debugging reasons		
@@ -98,6 +103,7 @@ public class AcceptanceTesting
 
 		target.setupIndex();
 
+		assertEquals("5", target.getOriginalTweetsId("7"));
 		assertEquals("1", target.countHashtagAppearances("bad"));
 		
 //		old irrelevent tests, kept here for debugging reasons		

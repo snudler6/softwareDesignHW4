@@ -10,10 +10,12 @@ import ac.il.technion.twc.api.TweetId;
 import ac.il.technion.twc.api.TweetsIndex;
 import ac.il.technion.twc.api.TweetsManager;
 import ac.il.technion.twc.api.interfaces.ITweetsRepository;
+import ac.il.technion.twc.impl.models.TweetsAncestorQueryHandler;
 import ac.il.technion.twc.impl.models.TweetsHashtagsAppearencesQueryHandler;
 import ac.il.technion.twc.impl.models.TweetsHashtagsQueryHandler;
 import ac.il.technion.twc.impl.models.TweetsLifetimeQueryHandler;
 import ac.il.technion.twc.impl.models.TweetsTemporalHistogram;
+import ac.il.technion.twc.impl.services.ITweetsAncestorQueryHandler;
 import ac.il.technion.twc.impl.services.ITweetsHashtagsQueryHandler;
 import ac.il.technion.twc.impl.services.ITweetsLifetimeQueryHandler;
 
@@ -28,7 +30,7 @@ public class TweetsKnowledgeCenter extends TweetsManager
 	final String TWEETS_TEMPORAL_HISTOGRAM_QUERY_HANDLER = "TWEETS_TEMPORAL_HISTOGRAM_QUERY_HANDLER";
 	final String TWEETS_HASHTAGS_QUERY_HANDLER = "TWEETS_HASHTAGS_QUERY_HANDLER";
 	final String TWEETS_HASHTAG_APPEARENCES_HANDLER = "TWEETS_HASHTAG_APPEARENCES_HANDLER"; 
-
+	final String TWEETS_ANCESTOR_QUERY_HANDLER = "TWEETS_ANCESTOR_QUERY_HANDLER";
 	@Inject
 	public TweetsKnowledgeCenter(ITweetsRepository tweetsRepository, TweetsIndex tweetsIndex)
 	{
@@ -37,6 +39,7 @@ public class TweetsKnowledgeCenter extends TweetsManager
 		this.subscribe(TWEETS_TEMPORAL_HISTOGRAM_QUERY_HANDLER, new TweetsTemporalHistogram());
 		this.subscribe(TWEETS_HASHTAGS_QUERY_HANDLER, new TweetsHashtagsQueryHandler());
 		this.subscribe(TWEETS_HASHTAG_APPEARENCES_HANDLER, new TweetsHashtagsAppearencesQueryHandler());
+		this.subscribe(TWEETS_ANCESTOR_QUERY_HANDLER, new TweetsAncestorQueryHandler());
 	}
 
 	public ITweetsLifetimeQueryHandler getTweetsLifetimeQueryHandler()
@@ -54,9 +57,13 @@ public class TweetsKnowledgeCenter extends TweetsManager
 		return (TweetsHashtagsQueryHandler) this.getQueryHandler(TWEETS_HASHTAGS_QUERY_HANDLER);
 	}
 
-	public ITweetsHashtagsQueryHandler getExtendedTweetsHashtagsQuesryHandler()
+	public ITweetsHashtagsQueryHandler getTweetsHashtagsAppearenceQueryHandler()
 	{
 		return (ITweetsHashtagsQueryHandler) this.getQueryHandler(TWEETS_HASHTAG_APPEARENCES_HANDLER);
+	}
+
+	public ITweetsAncestorQueryHandler getTweetsAncestorQueryHandler(){
+		return (ITweetsAncestorQueryHandler) this.getQueryHandler(TWEETS_ANCESTOR_QUERY_HANDLER);
 	}
 
 	/**
@@ -123,6 +130,12 @@ public class TweetsKnowledgeCenter extends TweetsManager
 	
 	public String getHashtagAppearences(String hashtag)
 	{
-		return getExtendedTweetsHashtagsQuesryHandler().getPopularity(hashtag).toString();
+		return getTweetsHashtagsAppearenceQueryHandler().getPopularity(hashtag).toString();
 	}
+	
+	public String getAncestorTweetsId(String id)
+	{
+		return getTweetsAncestorQueryHandler().getAncestor(new TweetId(id)).toString();
+	}
+	
 }
