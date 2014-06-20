@@ -1,8 +1,14 @@
 package ac.il.technion.twc.impl.models.partC;
 
+import java.io.Serializable;
 
-public class Pair<T> {
-    public final T first;
+
+public class Pair<T> implements Serializable {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1239202504731787857L;
+	public final T first;
     public final T second;
 
     public Pair(T first, T second) {
