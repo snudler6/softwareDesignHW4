@@ -21,6 +21,7 @@ import ac.il.technion.twc.impl.models.partB.TweetsRetweetsAmountQueryHandler;
 import ac.il.technion.twc.impl.services.ITweetsHashtagsQueryHandler;
 import ac.il.technion.twc.impl.services.ITweetsLifetimeQueryHandler;
 import ac.il.technion.twc.impl.services.partA.ITweetsAncestorQueryHandler;
+import ac.il.technion.twc.impl.services.partA.ITweetsHashtagsAppearenceQueryHandler;
 import ac.il.technion.twc.impl.services.partA.IUsersFirstTweetQueryHandler;
 import ac.il.technion.twc.impl.services.partB.ITweetsNumberByUserQueryHandler;
 import ac.il.technion.twc.impl.services.partB.ITweetsRetweetsAmountQueryHandler;
@@ -83,9 +84,9 @@ public class TweetsKnowledgeCenter extends TweetsManager
 		return (TweetsHashtagsQueryHandler) this.getQueryHandler(TWEETS_HASHTAGS_QUERY_HANDLER);
 	}
 
-	public ITweetsHashtagsQueryHandler getTweetsHashtagsAppearenceQueryHandler()
+	public ITweetsHashtagsAppearenceQueryHandler getTweetsHashtagsAppearenceQueryHandler()
 	{
-		return (ITweetsHashtagsQueryHandler) this.getQueryHandler(TWEETS_HASHTAG_APPEARENCES_HANDLER);
+		return (ITweetsHashtagsAppearenceQueryHandler) this.getQueryHandler(TWEETS_HASHTAG_APPEARENCES_HANDLER);
 	}
 
 	public ITweetsAncestorQueryHandler getTweetsAncestorQueryHandler(){

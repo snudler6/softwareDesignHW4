@@ -6,9 +6,9 @@ import java.util.Map;
 
 import ac.il.technion.twc.api.interfaces.ITweetsRepository;
 import ac.il.technion.twc.api.models.Tweet;
-import ac.il.technion.twc.impl.services.partA.ITweetsHashtagsAppearence;
+import ac.il.technion.twc.impl.services.partA.ITweetsHashtagsAppearenceQueryHandler;
 
-public class TweetsHashtagsAppearencesQueryHandler implements ITweetsHashtagsAppearence{
+public class TweetsHashtagsAppearencesQueryHandler implements ITweetsHashtagsAppearenceQueryHandler{
 
 	
 	private static final long serialVersionUID = 4958073188101045085L;
