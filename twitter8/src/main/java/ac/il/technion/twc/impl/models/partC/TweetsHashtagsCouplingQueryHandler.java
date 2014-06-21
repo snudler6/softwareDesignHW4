@@ -3,6 +3,7 @@ package ac.il.technion.twc.impl.models.partC;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -18,19 +19,20 @@ public class TweetsHashtagsCouplingQueryHandler implements
 
 	private static final long serialVersionUID = 4958073188101045085L;
 
-	public static class ValueComparator<T> implements Serializable,
-			Comparator<Pair<T>> {
+	public static class ValueComparator implements Serializable,
+			Comparator<Pair<String>> {
 
 		private static final long serialVersionUID = -3909198429646950164L;
-		final Map<Pair<T>, Integer> base;
+		private final Map<Pair<String>, Integer> base;
+		
 
-		public ValueComparator(Map<Pair<T>, Integer> hashtagsPairs) {
-			this.base = hashtagsPairs;
+		public ValueComparator(Map<Pair<String>, Integer> hashtagsPairs) {
+			base = hashtagsPairs;
 		}
 
 		// Note: this comparator imposes orderings that are inconsistent with
 		// equals.
-		public int compare(Pair<T> a, Pair<T> b) {
+		public int compare(Pair<String> a, Pair<String> b) {
 			if (base.get(a) >= base.get(b)) {
 				return -1;
 			} else {
@@ -39,11 +41,12 @@ public class TweetsHashtagsCouplingQueryHandler implements
 		}
 	}
 
-	private NavigableMap<Pair<String>, Integer> hashtagsPairs;
+	private Map<Pair<String>, Integer> hashtagPairsValues;
+	private NavigableMap<Pair<String>, Integer> hashtagPairs;
 
 	public TweetsHashtagsCouplingQueryHandler() {
-		this.hashtagsPairs = new TreeMap<Pair<String>, Integer>(
-				new ValueComparator<String>(hashtagsPairs));
+		this.hashtagPairsValues = new HashMap<Pair<String>, Integer>();
+		this.hashtagPairs = new TreeMap<Pair<String>, Integer>(new ValueComparator(hashtagPairsValues));
 	}
 
 	@Override
@@ -56,14 +59,22 @@ public class TweetsHashtagsCouplingQueryHandler implements
 					incPair(hashtags.get(i), hashtags.get(j));
 		}
 	}
+	
+	private void putPair(Pair<String> key, Integer val) {
+		// should put first in values, for the compression will work
+		// in hashtagPairs map. 
+		hashtagPairsValues.put(key, val);
+		hashtagPairs.put(key, val);
+	}
 
 	private void incPair(String hashtag, String hashtag2) {
 		Pair<String> pair = new Pair<String>(hashtag, hashtag2);
-		Integer coupling = hashtagsPairs.get(pair);
-		if (coupling == null)
-			hashtagsPairs.put(pair, new Integer(1));
+		Integer coupling = hashtagPairsValues.get(pair);
+		if (coupling == null) {
+			putPair(pair, new Integer(1));
+		}
 		else
-			hashtagsPairs.put(pair, coupling + 1);
+			putPair(pair, coupling + 1);
 
 	}
 
@@ -75,7 +86,7 @@ public class TweetsHashtagsCouplingQueryHandler implements
 	@Override
 	public List<Pair<String>> getMostCoupled(int k) {
 		List<Pair<String>> res = new ArrayList<Pair<String>>(k);
-		Iterator<Pair<String>> iter = hashtagsPairs.navigableKeySet()
+		Iterator<Pair<String>> iter = hashtagPairs.navigableKeySet()
 				.descendingIterator();
 		for (int i = 0; i < k; ++i) {
 			if (!iter.hasNext())
