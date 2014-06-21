@@ -39,10 +39,10 @@ public class TweetsDailyHistogramUnitTest
 	public void getStrings_twoRetweetAtTheSameDay() throws Exception
 	{
 		Calendar calendar1 = new GregorianCalendar(2014, 5 - 1, 11, 12, 0, 0);
-		Tweet tweet1 = new Retweet(new TweetId("iddqd"), calendar1.getTime(), new TweetId("123"));
+		Tweet tweet1 = new Retweet(new TweetId("iddqd"), calendar1.getTime(), new TweetId("123"), "");
 
 		Calendar calendar2 = new GregorianCalendar(2014, 5 - 1, 11, 13, 0, 0);
-		Tweet tweet2 = new Retweet(new TweetId("593393706"), calendar2.getTime(), new TweetId("123"));
+		Tweet tweet2 = new Retweet(new TweetId("593393706"), calendar2.getTime(), new TweetId("123"), "");
 
 		tweetsDailyHistogram.putAll(getAsList(tweet1));
 		tweetsDailyHistogram.putAll(getAsList(tweet2));
@@ -53,10 +53,10 @@ public class TweetsDailyHistogramUnitTest
 	public void getStrings_oneRootTweetAndOneRetweetAtTheSameDay() throws Exception
 	{
 		Calendar calendar1 = new GregorianCalendar(2014, 5 - 1, 12, 12, 0, 0);
-		Tweet tweet1 = new RootTweet(new TweetId("iddqd"), calendar1.getTime(),null);
+		Tweet tweet1 = new RootTweet(new TweetId("iddqd"), calendar1.getTime(),null, "");
 
 		Calendar calendar2 = new GregorianCalendar(2014, 5 - 1, 12, 13, 0, 0);
-		Tweet tweet2 = new Retweet(new TweetId("593393706"), calendar2.getTime(), new TweetId("123"));
+		Tweet tweet2 = new Retweet(new TweetId("593393706"), calendar2.getTime(), new TweetId("123"), "");
 
 		tweetsDailyHistogram.putAll(getAsList(tweet1));
 		tweetsDailyHistogram.putAll(getAsList(tweet2));
@@ -91,7 +91,7 @@ public class TweetsDailyHistogramUnitTest
 		{
 			for (Calendar day : days)
 			{
-				rootTweet = new RootTweet(new TweetId("rootTweet" + i), day.getTime(),null);
+				rootTweet = new RootTweet(new TweetId("rootTweet" + i), day.getTime(),null, "");
 				tweetsDailyHistogram.putAll(getAsList(rootTweet));
 			}
 		}
@@ -99,7 +99,7 @@ public class TweetsDailyHistogramUnitTest
 		{
 			for (Calendar day : days)
 			{
-				retweet = new Retweet(new TweetId("retweet" + i), day.getTime(), new TweetId("rootTweet" + i));
+				retweet = new Retweet(new TweetId("retweet" + i), day.getTime(), new TweetId("rootTweet" + i), "");
 				tweetsDailyHistogram.putAll(getAsList(retweet));
 			}
 		}

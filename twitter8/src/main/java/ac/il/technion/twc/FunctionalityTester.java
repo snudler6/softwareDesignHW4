@@ -132,7 +132,7 @@ public class FunctionalityTester {
 	 * @throws Exception If it is not possible to complete the operation
 	 */
 	public String getTweetsContent(String tweetId) throws Exception {
-		throw new UnsupportedOperationException("Not implemented");
+		return tweetsKnowledgeCenter.getTweetText(tweetId);
 	}
 	
 	/**
@@ -143,7 +143,7 @@ public class FunctionalityTester {
 	 * @throws Exception If it is not possible to complete the operation
 	 */
 	public String getOriginalTweetsId(String tweetId) throws Exception {
-		return tweetsKnowledgeCenter.getAncestorTweetsId(tweetId);
+		throw new UnsupportedOperationException("Not implemented");
 	}
 	
 	/**
@@ -213,7 +213,7 @@ public class FunctionalityTester {
 	 * @return The number of retweets
 	 */
 	public String numberOfRetweets(String tweetId) {
-		return this.tweetsKnowledgeCenter.getTweetsRetweetsAmount(tweetId);
+		throw new UnsupportedOperationException("Not implemented");
 	}
 	
 	/**
@@ -224,7 +224,7 @@ public class FunctionalityTester {
 	 * @throws Exception If it is not possible to complete the operation
 	 */
 	public String numberOfYoutubeShares(String youtubeUrl) throws Exception {
-		throw new UnsupportedOperationException("Not implemented");
+		return this.tweetsKnowledgeCenter.getLinkSharesAmount(youtubeUrl);
 	}
 	
 	/**

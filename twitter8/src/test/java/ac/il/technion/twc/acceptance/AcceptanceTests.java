@@ -33,15 +33,37 @@ public class AcceptanceTests {
 
 		$.setupIndex();
 
-		String json5 = TestUtils.createJsonTweet(5,"100","Sun May 19 10:08:08 +0000 2013",new String[]{"bad","a","b","c"},false,-1) ;
-		String json6 = TestUtils.createJsonTweet(6,"101","Sun May 19 10:08:08 +0000 2013",new String[]{"a","c"},true,5) ; 
-		String json7 = TestUtils.createJsonTweet(7,"100","Sun May 20 10:08:08 +0000 2013",new String[]{"a","c","bad","good"},false,-1) ;
-		String json8 = TestUtils.createJsonTweet(9,"111","Sun May 19 10:08:08 +0000 2013",new String[]{"a","c"},false,-1) ; 
-		String json9 = TestUtils.createJsonTweet(10,"120","Sun May 19 10:08:08 +0000 2013",new String[]{"a","bad"},false,-1) ; 
+		String json5 = TestUtils.createJsonTweet(5, "100",
+				"Sun May 19 10:08:08 +0000 2013", new String[] { "bad", "a",
+						"b", "c" }, false, -1);
+		String json200 = TestUtils.createJsonTweet(200, "1987897",
+				"Sun May 19 10:08:08 +0000 2017", new String[] { "http://www.youtube.com/vid1" }, false, -1);
 		
-		lines = new String[] { json5, json6, json7,json8,json9 };
+		String json7 = TestUtils.createJsonTweet(7, "100",
+				"Sun May 20 10:08:08 +0000 2013", new String[] { "a", "c",
+						"bad", "good" }, false, -1);
+		String json8 = TestUtils.createJsonTweet(9, "111",
+				"Sun May 19 10:08:08 +0000 2013", new String[] { "a", "c" },
+				false, -1);
+		String json9 = TestUtils.createJsonTweet(10, "120",
+				"Sun May 19 10:08:08 +0000 2013", new String[] { "a", "bad" },
+				false, -1);
+		String json10 = TestUtils.createJsonTweet(11, "155",
+				"Sun May 20 10:08:08 +0000 2013", new String[] { "a", "c" },
+				true, 6);
+		
+		lines = new String[] { json5, json10, json7, json8, json9, json200 };
+
+		String json6 = TestUtils.createJsonTweet(6, "101",
+				"Sun May 21 10:08:08 +0000 2013", new String[] { "a", "c" },
+				true, 5);
+		String[] lines2 = new String[] { json6 };
 
 		$.importDataJson(lines);
+
+		$.setupIndex();		
+		
+		$.importDataJson(lines2);
 
 		$.setupIndex();		
 	}
@@ -53,10 +75,12 @@ public class AcceptanceTests {
 	}
 	
 	@Test
-	public final void partA_getOriginalTweetIDTest() throws Exception {
-		assertEquals("5", $.getOriginalTweetsId("5"));
-		assertEquals("5", $.getOriginalTweetsId("6"));
-		assertEquals("7", $.getOriginalTweetsId("7"));
+	public final void partA_getTweetContentTest() throws Exception {
+		assertEquals("my hashtags are:  #bad  #a  #b  #c ", $.getTweetsContent("5"));
+		assertEquals("my hashtags are:  #a  #c ", $.getTweetsContent("6"));
+		assertEquals("my hashtags are:  #a  #c ", $.getTweetsContent("11"));
+		
+		assertEquals("", $.getTweetsContent("1"));
 	}
 	
 	@Test
@@ -73,11 +97,9 @@ public class AcceptanceTests {
 	}
 	
 	@Test
-	public final void partB_RetweetsAmountTest() throws Exception {
-		assertEquals("2",$.numberOfRetweets("1"));
-		assertEquals("1",$.numberOfRetweets("5"));
-		assertEquals("0",$.numberOfRetweets("4")); //no retweets
-		assertEquals("0",$.numberOfRetweets("non-existing")); //non exsisting
+	public final void partB_LinkShareAmountTest() throws Exception {
+		assertEquals("1",$.numberOfYoutubeShares("http://www.youtube.com/vid1"));
+		assertEquals("0",$.numberOfYoutubeShares("http://www.youtube.com/non_existing_vid"));
 	}
 
 	@Test

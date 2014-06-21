@@ -28,9 +28,9 @@ public class Retweet extends Tweet
 	 * @param originalTweetId
 	 *            the tweet to which this tweet was retweeted to
 	 */
-	public Retweet(TweetId id, Date time, TweetId originalTweetId)
+	public Retweet(TweetId id, Date time, TweetId originalTweetId, String text)
 	{
-		super(id, time, new LinkedList<String>());
+		super(id, time, new LinkedList<String>(), text);
 		if (originalTweetId.equals(id))
 			throw new IllegalArgumentException("A tweet cannot retweet itself");
 
@@ -47,9 +47,9 @@ public class Retweet extends Tweet
 	 * @param originalTweetId
 	 *            the tweet to which this tweet was retweeted to
 	 */
-	public Retweet(TweetId id, String userId, Date time, TweetId originalTweetId, List<String> hashtags)
+	public Retweet(TweetId id, String userId, Date time, TweetId originalTweetId, List<String> hashtags, String text)
 	{
-		super(id, userId, time, hashtags);
+		super(id, userId, time, hashtags, text);
 		if (originalTweetId.equals(id))
 			throw new IllegalArgumentException("A tweet cannot retweet itself");
 

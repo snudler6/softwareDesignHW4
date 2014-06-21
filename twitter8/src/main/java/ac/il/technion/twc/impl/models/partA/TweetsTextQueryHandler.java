@@ -7,17 +7,17 @@ import java.util.Map;
 import ac.il.technion.twc.api.TweetId;
 import ac.il.technion.twc.api.interfaces.ITweetsRepository;
 import ac.il.technion.twc.api.models.Tweet;
-import ac.il.technion.twc.impl.services.partA.ITweetsAncestorQueryHandler;
+import ac.il.technion.twc.impl.services.partA.ITweetsTextQueryHandler;
 
-public class TweetsAncestorQueryHandler implements ITweetsAncestorQueryHandler
+public class TweetsTextQueryHandler implements ITweetsTextQueryHandler
 {
 	private static final long serialVersionUID = -5818986663944504124L;
 	
-	private Map<TweetId,TweetId> tweetsAncestor;
+	private Map<TweetId,String> tweetsTextsByTweetId;
 	
-	public TweetsAncestorQueryHandler()
+	public TweetsTextQueryHandler()
 	{
-		this.tweetsAncestor = new HashMap<TweetId, TweetId>();
+		this.tweetsTextsByTweetId = new HashMap<TweetId, String>();
 	}
 
 	/* (non-Javadoc)
@@ -27,9 +27,7 @@ public class TweetsAncestorQueryHandler implements ITweetsAncestorQueryHandler
 	{
 		for (Tweet tweet : tweets)
 		{
-			final Tweet originalTweet = tweetsRepository.getRootTweet(tweet);
-			if (originalTweet != null)
-				tweetsAncestor.put(tweet.getId(), originalTweet.getId());
+			tweetsTextsByTweetId.put(tweet.getId(), tweet.getTweetText());
 		}
 	}
 	
@@ -42,7 +40,7 @@ public class TweetsAncestorQueryHandler implements ITweetsAncestorQueryHandler
 	}
 
 	@Override
-	public TweetId getAncestor(TweetId id) {
-		return tweetsAncestor.get(id);
+	public String getTweetText(TweetId id) {
+		return tweetsTextsByTweetId.get(id);
 	}
 }

@@ -53,6 +53,9 @@ public class TweetsHashtagsCouplingQueryHandler implements
 	public void onTweetsAdded(List<Tweet> tweets,
 			ITweetsRepository tweetsRepository) {
 		for (Tweet tweet : tweets) {
+			if (tweet.isRetweet())
+				continue;
+			
 			List<String> hashtags = tweet.getHashtags();
 			for (int i = 0; i < hashtags.size(); ++i)
 				for (int j = i + 1; j < hashtags.size(); ++j)

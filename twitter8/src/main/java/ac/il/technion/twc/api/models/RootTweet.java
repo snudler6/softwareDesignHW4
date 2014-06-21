@@ -21,9 +21,9 @@ public class RootTweet extends Tweet
 	 * @param time
 	 *            the time the tweet was made
 	 */
-	public RootTweet(TweetId id, Date time, List<String> hashtags)
+	public RootTweet(TweetId id, Date time, List<String> hashtags, String text)
 	{
-		super(id, time, hashtags);
+		super(id, time, hashtags, text);
 	}
 	
 	/**
@@ -34,9 +34,9 @@ public class RootTweet extends Tweet
 	 * @param time
 	 *            the time the tweet was made
 	 */
-	public RootTweet(TweetId id, String userId, Date time, List<String> hashtags)
+	public RootTweet(TweetId id, String userId, Date time, List<String> hashtags, String text)
 	{
-		super(id, userId, time, hashtags);
+		super(id, userId, time, hashtags, text);
 	}
 
 	/**

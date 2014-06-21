@@ -24,9 +24,9 @@ public abstract class Tweet extends AbstractTweet
 	 * @param time
 	 *            the time the tweet was made
 	 */
-	public Tweet(TweetId id, Date time, List<String> hashtags)
+	public Tweet(TweetId id, Date time, List<String> hashtags, String text)
 	{
-		super(id, time);
+		super(id, time, text);
 		this.time = time;
 		this.hashtags = hashtags;
 	}
@@ -39,9 +39,9 @@ public abstract class Tweet extends AbstractTweet
 	 * @param time
 	 *            the time the tweet was made
 	 */
-	public Tweet(TweetId id, String userId, Date time, List<String> hashtags)
+	public Tweet(TweetId id, String userId, Date time, List<String> hashtags, String text)
 	{
-		super(id, userId, time);
+		super(id, userId, time, text);
 		this.time = time;
 		this.hashtags = hashtags;
 	}

@@ -104,20 +104,23 @@ public class TweetsRepository implements ITweetsRepository
 	private Tweet updateLatestRetweetTimeAndNumRetweets(TweetId originalTweetId, Date time)
 	{
 		AbstractTweet tweet = this.tweetsById.get(originalTweetId);
-		if (tweet == null)
-			throw new IllegalArgumentException("Original tweet of a retweet does not exist");
-
+		
+		while(tweet.isRetweet()){
+			tweet.incrementNumRetweets();
+			
+			tweet = this.tweetsById.get(((Retweet) tweet).getOriginalTweetId());
+			
+			if (tweet == null)
+				throw new IllegalArgumentException("Original tweet of a retweet does not exist");
+			
+		}
+		
 		tweet.incrementNumRetweets();
 
-		if (tweet.isRetweet())
-			return updateLatestRetweetTimeAndNumRetweets(((Retweet) tweet).getOriginalTweetId(), time);
-		else
-		{
-			boolean changed = tweet.setLatestRetweetTime(time);
-			if (changed && tweet instanceof RootTweet)
-				return (RootTweet) tweet;
-			return null;
-		}
+		boolean changed = tweet.setLatestRetweetTime(time);
+		if (changed && tweet instanceof RootTweet)
+			return (RootTweet) tweet;
+		return null;
 	}
 
 	/* (non-Javadoc)

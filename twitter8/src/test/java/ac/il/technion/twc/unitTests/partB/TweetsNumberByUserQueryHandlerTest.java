@@ -44,7 +44,7 @@ public class TweetsNumberByUserQueryHandlerTest
 
 	@Test
 	public void test() {
-		assertEquals("3", qh.getTweetsNumberByUser(USER_NAME));
-		assertEquals("1", qh.getTweetsNumberByUser(USER_NAME2));
+		assertEquals(new Integer(3), qh.getTweetsNumberByUser(USER_NAME));
+		assertEquals(new Integer(1), qh.getTweetsNumberByUser(USER_NAME2));
 	}
 }

@@ -13,18 +13,18 @@ import ac.il.technion.twc.api.interfaces.ITweetsRepository;
 import ac.il.technion.twc.impl.models.TweetsHashtagsQueryHandler;
 import ac.il.technion.twc.impl.models.TweetsLifetimeQueryHandler;
 import ac.il.technion.twc.impl.models.TweetsTemporalHistogram;
-import ac.il.technion.twc.impl.models.partA.TweetsAncestorQueryHandler;
+import ac.il.technion.twc.impl.models.partA.TweetsTextQueryHandler;
 import ac.il.technion.twc.impl.models.partA.TweetsHashtagsAppearencesQueryHandler;
 import ac.il.technion.twc.impl.models.partA.UsersFirstTweetQueryHandler;
 import ac.il.technion.twc.impl.models.partB.TweetsNumberByUserQueryHandler;
-import ac.il.technion.twc.impl.models.partB.TweetsRetweetsAmountQueryHandler;
+import ac.il.technion.twc.impl.models.partB.TweetsYoutubeLinkQueryHandler;
 import ac.il.technion.twc.impl.models.partC.TweetsHashtagsCouplingQueryHandler;
 import ac.il.technion.twc.impl.services.ITweetsLifetimeQueryHandler;
-import ac.il.technion.twc.impl.services.partA.ITweetsAncestorQueryHandler;
+import ac.il.technion.twc.impl.services.partA.ITweetsTextQueryHandler;
 import ac.il.technion.twc.impl.services.partA.ITweetsHashtagsAppearenceQueryHandler;
 import ac.il.technion.twc.impl.services.partA.IUsersFirstTweetQueryHandler;
 import ac.il.technion.twc.impl.services.partB.ITweetsNumberByUserQueryHandler;
-import ac.il.technion.twc.impl.services.partB.ITweetsRetweetsAmountQueryHandler;
+import ac.il.technion.twc.impl.services.partB.ITweetsYoutubeLinkQueryHandler;
 import ac.il.technion.twc.impl.services.partC.ITweetsHashtagsCouplingQueryHandler;
 
 import com.google.inject.Inject;
@@ -40,12 +40,12 @@ public class TweetsKnowledgeCenter extends TweetsManager
 	
 	//Part A data handlers
 	final String TWEETS_HASHTAG_APPEARENCES_HANDLER = "TWEETS_HASHTAG_APPEARENCES_HANDLER"; 
-	final String TWEETS_ANCESTOR_QUERY_HANDLER = "TWEETS_ANCESTOR_QUERY_HANDLER";
+	final String TWEETS_CONTENT_QUERY_HANDLER = "TWEETS_CONTENT_QUERY_HANDLER";
 	final String TWEETS_USER_FIRST_TWEET_QUERY_HANDLER = "TWEETS_USER_FIRST_TWEET_QUERY_HANDLER";
 	
 	//Part B data handlers
 	final String TWEETS_NUMBER_BY_USER_QUERY_HANDLER = "TWEETS_NUMBER_BY_USER_QUERY_HANDLER";
-	final String TWEETS_RETWEETS_AMOUNT = "TWEETS_RETWEETS_AMOUNT";
+	final String LINK_SHARES_AMOUNT = "LINK_SHARES_AMOUNT";
 	
 	//Part C data handlers
 	final String TWEETS_HASHTAGS_COUPLING_QUERY_HANDLER = "TWEETS_HASHTAGS_COUPLING_QUERY_HANDLER";
@@ -58,10 +58,10 @@ public class TweetsKnowledgeCenter extends TweetsManager
 		this.subscribe(TWEETS_TEMPORAL_HISTOGRAM_QUERY_HANDLER, new TweetsTemporalHistogram());
 		this.subscribe(TWEETS_HASHTAGS_QUERY_HANDLER, new TweetsHashtagsQueryHandler());
 		this.subscribe(TWEETS_HASHTAG_APPEARENCES_HANDLER, new TweetsHashtagsAppearencesQueryHandler());
-		this.subscribe(TWEETS_ANCESTOR_QUERY_HANDLER, new TweetsAncestorQueryHandler());
+		this.subscribe(TWEETS_CONTENT_QUERY_HANDLER, new TweetsTextQueryHandler());
 		this.subscribe(TWEETS_USER_FIRST_TWEET_QUERY_HANDLER, new UsersFirstTweetQueryHandler());
 		this.subscribe(TWEETS_NUMBER_BY_USER_QUERY_HANDLER, new TweetsNumberByUserQueryHandler());
-		this.subscribe(TWEETS_RETWEETS_AMOUNT, new TweetsRetweetsAmountQueryHandler());
+		this.subscribe(LINK_SHARES_AMOUNT, new TweetsYoutubeLinkQueryHandler());
 		this.subscribe(TWEETS_HASHTAGS_COUPLING_QUERY_HANDLER, new TweetsHashtagsCouplingQueryHandler());
 	}
 	
@@ -69,8 +69,8 @@ public class TweetsKnowledgeCenter extends TweetsManager
 		return (ITweetsHashtagsCouplingQueryHandler) this.getQueryHandler(TWEETS_HASHTAGS_COUPLING_QUERY_HANDLER);
 	}
 	
-	public ITweetsRetweetsAmountQueryHandler getTweetsRetweetsAmountQueryHandler(){
-		return (ITweetsRetweetsAmountQueryHandler) this.getQueryHandler(TWEETS_RETWEETS_AMOUNT);
+	public ITweetsYoutubeLinkQueryHandler getYoutubeLinkAmountQueryHandler(){
+		return (ITweetsYoutubeLinkQueryHandler) this.getQueryHandler(LINK_SHARES_AMOUNT);
 	}
 
 	public ITweetsNumberByUserQueryHandler getTweetsNumberByUserQueryHandler(){		
@@ -97,8 +97,8 @@ public class TweetsKnowledgeCenter extends TweetsManager
 		return (ITweetsHashtagsAppearenceQueryHandler) this.getQueryHandler(TWEETS_HASHTAG_APPEARENCES_HANDLER);
 	}
 
-	public ITweetsAncestorQueryHandler getTweetsAncestorQueryHandler(){
-		return (ITweetsAncestorQueryHandler) this.getQueryHandler(TWEETS_ANCESTOR_QUERY_HANDLER);
+	public ITweetsTextQueryHandler getTweetTextQueryHandler(){
+		return (ITweetsTextQueryHandler) this.getQueryHandler(TWEETS_CONTENT_QUERY_HANDLER);
 	}
 
 	public IUsersFirstTweetQueryHandler getUserFirstTweetQueryHandler(){
@@ -164,9 +164,9 @@ public class TweetsKnowledgeCenter extends TweetsManager
 		return getTweetsHashtagsAppearenceQueryHandler().getHashtagAppearences(hashtag).toString();
 	}
 	
-	public String getAncestorTweetsId(String id)
+	public String getTweetText(String id)
 	{
-		return getTweetsAncestorQueryHandler().getAncestor(new TweetId(id)).toString();
+		return getTweetTextQueryHandler().getTweetText(new TweetId(id)).toString();
 	}
 
 	public String getUserFirstTweet(String userId)
@@ -178,8 +178,8 @@ public class TweetsKnowledgeCenter extends TweetsManager
 		return getTweetsNumberByUserQueryHandler().getTweetsNumberByUser(user).toString();
 	}
 
-	public String getTweetsRetweetsAmount(String id){
-		return getTweetsRetweetsAmountQueryHandler().getRetweetsAmount(new TweetId(id)).toString();
+	public String getLinkSharesAmount(String link){
+		return getYoutubeLinkAmountQueryHandler().getYoutubeLinkAmount(link).toString();
 	}
 
 	public String[] getTweetsHashtagsCoupling(int k){

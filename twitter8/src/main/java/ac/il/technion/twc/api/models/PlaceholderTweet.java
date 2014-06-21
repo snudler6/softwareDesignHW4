@@ -25,7 +25,7 @@ public class PlaceholderTweet extends AbstractTweet
 	 */
 	public PlaceholderTweet(TweetId id, Date latestRetweetTime, int numRetweets)
 	{
-		super(id, latestRetweetTime);
+		super(id, latestRetweetTime, "");
 		setNumRetweets(numRetweets);
 	}
 }

@@ -1,12 +1,11 @@
 package ac.il.technion.twc.impl.services.partB;
 
-import ac.il.technion.twc.api.TweetId;
 import ac.il.technion.twc.api.interfaces.IQueryHandler;
  
 /**
  * manages the popularity of hashtags
  */
-public interface ITweetsRetweetsAmountQueryHandler extends IQueryHandler
+public interface ITweetsYoutubeLinkQueryHandler extends IQueryHandler
 {
 
 	/**
@@ -16,5 +15,5 @@ public interface ITweetsRetweetsAmountQueryHandler extends IQueryHandler
 	 * @return 0 if the hashtag does not exist. otherwise, the number of
 	 *         retweets to roottweets that contains the given hashtag 
 	 */
-	public Integer getRetweetsAmount(TweetId id);
+	public Integer getYoutubeLinkAmount(String youtubeLink);
 }
