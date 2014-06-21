@@ -3,6 +3,7 @@ package ac.il.technion.twc.impl.models.partC;
 import java.io.Serializable;
 
 public class Pair<T> implements Serializable {
+	private static final String PAIR_STRING_SEPERATOR = ", ";
 	/**
 	 * 
 	 */
@@ -41,8 +42,8 @@ public class Pair<T> implements Serializable {
 		String firstString = first.toString();
 		String secondString = second.toString();
 		if(firstString.compareTo(secondString) < 0)
-			return first + ", " + second;
+			return first + PAIR_STRING_SEPERATOR + second;
 		else
-			return second + ", " + first;
+			return second + PAIR_STRING_SEPERATOR + first;
 	}
 }

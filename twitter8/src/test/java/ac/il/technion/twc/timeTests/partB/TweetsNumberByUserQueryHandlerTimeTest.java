@@ -2,7 +2,7 @@ package ac.il.technion.twc.timeTests.partB;
 
 import org.junit.Test;
 
-public class TweetsNumberByUserQueryHandlerTimeTest extends partB_StressTest {
+public class TweetsNumberByUserQueryHandlerTimeTest extends PartB_StressTest {
 
 	@Override
 	@Test(timeout = 10 * times) // 10ms for each run
