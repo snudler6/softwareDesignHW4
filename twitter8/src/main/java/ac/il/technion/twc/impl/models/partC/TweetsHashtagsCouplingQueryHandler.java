@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.NavigableMap;
-import java.util.TreeMap;
+import java.util.NavigableSet;
+import java.util.TreeSet;
 
 import ac.il.technion.twc.api.interfaces.ITweetsRepository;
 import ac.il.technion.twc.api.models.Tweet;
@@ -20,33 +20,33 @@ public class TweetsHashtagsCouplingQueryHandler implements
 	private static final long serialVersionUID = 4958073188101045085L;
 
 	public static class ValueComparator implements Serializable,
-			Comparator<Pair<String>> {
+			Comparator< Pair<Pair<String,String>,Integer>> {
 
 		private static final long serialVersionUID = -3909198429646950164L;
-		private final Map<Pair<String>, Integer> base;
+
 		
-
-		public ValueComparator(Map<Pair<String>, Integer> hashtagsPairs) {
-			base = hashtagsPairs;
-		}
-
 		// Note: this comparator imposes orderings that are inconsistent with
 		// equals.
-		public int compare(Pair<String> a, Pair<String> b) {
-			if (base.get(a) >= base.get(b)) {
-				return -1;
-			} else {
-				return 1;
-			} // returning 0 would merge keys
+		public int compare(Pair<Pair<String,String>,Integer> a, Pair<Pair<String,String>,Integer> b) {
+			final int valueDiff = a.right -b.right;
+			if (valueDiff != 0)
+				return valueDiff;
+			else
+				// this "secondary ordering" is for the map not to combine entries.
+				return a.left.hashCode() - b.left.hashCode();
 		}
 	}
 
-	private Map<Pair<String>, Integer> hashtagPairsValues;
-	private NavigableMap<Pair<String>, Integer> hashtagPairs;
-
+	/**
+	 * the map is for getting coupling by Pairs.
+	 * the set is for keeping the couples ordered.
+	 */
+	private final Map< Pair<String,String> , Integer > couplesMap; 
+	private final NavigableSet< Pair< Pair<String,String> , Integer > > couplesSet;
+	
 	public TweetsHashtagsCouplingQueryHandler() {
-		this.hashtagPairsValues = new HashMap<Pair<String>, Integer>();
-		this.hashtagPairs = new TreeMap<Pair<String>, Integer>(new ValueComparator(hashtagPairsValues));
+		couplesMap = new HashMap<>();
+		couplesSet = new TreeSet<>(new ValueComparator());
 	}
 
 	@Override
@@ -60,22 +60,25 @@ public class TweetsHashtagsCouplingQueryHandler implements
 		}
 	}
 	
-	private void putPair(Pair<String> key, Integer val) {
-		// should put first in values, for the compression will work
+	private void putPair(Pair<String,String> key, Integer val) {
+		// should put left in values, for the compression will work
 		// in hashtagPairs map. 
-		hashtagPairsValues.put(key, val);
-		hashtagPairs.put(key, val);
+		couplesMap.put(key, val);
+		if ( val > 1) {
+			Pair< Pair<String,String> , Integer > oldPair = new Pair< Pair<String,String> , Integer >(key,val-1);
+			couplesSet.remove(oldPair);
+		}
+		Pair< Pair<String,String> , Integer > newPair = new Pair< Pair<String,String> , Integer >(key,val);
+		couplesSet.add(newPair);
 	}
 
 	private void incPair(String hashtag, String hashtag2) {
-		Pair<String> pair = new Pair<String>(hashtag, hashtag2);
-		Integer coupling = hashtagPairsValues.get(pair);
-		if (coupling == null) {
+		Pair<String,String> pair = new Pair<String,String>(hashtag, hashtag2);
+		Integer coupling = couplesMap.get(pair);
+		if (coupling == null)
 			putPair(pair, new Integer(1));
-		}
 		else
 			putPair(pair, coupling + 1);
-
 	}
 
 	@Override
@@ -84,14 +87,13 @@ public class TweetsHashtagsCouplingQueryHandler implements
 	}
 
 	@Override
-	public List<Pair<String>> getMostCoupled(int k) {
-		List<Pair<String>> res = new ArrayList<Pair<String>>(k);
-		Iterator<Pair<String>> iter = hashtagPairs.navigableKeySet()
-				.descendingIterator();
+	public List<String> getMostCoupled(int k) {
+		List<String> res = new ArrayList<String>(k);
+		Iterator< Pair<Pair<String,String>,Integer> > iter = couplesSet.descendingIterator();
 		for (int i = 0; i < k; ++i) {
 			if (!iter.hasNext())
 				break;
-			res.add(iter.next());
+			res.add(iter.next().left.toString());
 		}
 		return res;
 

@@ -10,6 +10,6 @@ public interface ITweetsNumberByUserQueryHandler  extends IQueryHandler {
 	 * @param userId the id of the user
 	 * @return The number of tweets made by the user
 	 */
-	public abstract String getTweetsNumberByUser(String usersId);
+	public abstract Integer getTweetsNumberByUser(String usersId);
 
 }

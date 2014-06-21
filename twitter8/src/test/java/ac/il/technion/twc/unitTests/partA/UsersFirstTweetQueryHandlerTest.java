@@ -18,8 +18,8 @@ import com.googlecode.totallylazy.Lists;
 
 public class UsersFirstTweetQueryHandlerTest {
 	
-	private static final TweetId FIRST_ID = new TweetId("first");
-	private static final TweetId SECOND_ID = new TweetId("second");
+	private static final TweetId FIRST_ID = new TweetId("left");
+	private static final TweetId SECOND_ID = new TweetId("right");
 	private static final TweetId THIRD_ID = new TweetId("third");
 	private static final String userName = "Moshe";
 	UsersFirstTweetQueryHandler qh = new UsersFirstTweetQueryHandler();

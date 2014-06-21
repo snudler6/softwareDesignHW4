@@ -48,7 +48,10 @@ public class TweetsRetweetsAmountQueryHandler implements ITweetsRetweetsAmountQu
 
 	@Override
 	public Integer getRetweetsAmount(TweetId id) {
-		return retweetsAmountByTweetId.get(id);
+		final Integer retweetAmount = retweetsAmountByTweetId.get(id);
+		if (retweetAmount==null)
+			return Integer.valueOf(0);
+		return retweetAmount;
 	}
 
 

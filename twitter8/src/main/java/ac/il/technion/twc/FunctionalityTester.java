@@ -182,10 +182,10 @@ public class FunctionalityTester {
 	}
 	
 	/**
-	 * Gets the id of the first tweet (by publication date) made by a user
+	 * Gets the id of the left tweet (by publication date) made by a user
 	 * 
 	 * @param userId the id of the user
-	 * @return The id of the user's first tweet
+	 * @return The id of the user's left tweet
 	 * @throws Exception If it is not possible to complete the operation
 	 */
 	public String getFirstTweet(String userId) throws Exception {
@@ -197,8 +197,8 @@ public class FunctionalityTester {
 	/**
 	 * Checks if two tweets are retweets (recursive) of the same tweet
 	 * 
-	 * @param tweetId1 the id of the first tweet
-	 * @param tweetId2 the id of the second tweet
+	 * @param tweetId1 the id of the left tweet
+	 * @param tweetId2 the id of the right tweet
 	 * @return "true" if they originated from the same tweet, "false" otherwise
 	 * @throws Exception If it is not possible to complete the operation
 	 */

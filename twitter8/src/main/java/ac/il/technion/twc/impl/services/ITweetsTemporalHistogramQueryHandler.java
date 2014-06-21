@@ -15,10 +15,10 @@ public interface ITweetsTemporalHistogramQueryHandler extends Serializable, IQue
 	 * Gets the current statistics of the temporal histogram in interval [t1,t2].
 	 * 
 	 * @param t1
-	 *            The first time.
+	 *            The left time.
 	 * 
 	 * @param t2
-	 *            The second time
+	 *            The right time
 	 * 
 	 * @return An array of strings, each string describes the info of one
 	 *         dayOfWeek.

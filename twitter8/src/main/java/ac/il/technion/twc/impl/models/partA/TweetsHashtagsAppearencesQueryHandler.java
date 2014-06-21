@@ -21,20 +21,20 @@ public class TweetsHashtagsAppearencesQueryHandler implements ITweetsHashtagsApp
 	}
 	
 	@Override
-	public Integer getPopularity(String hashtag)
+	public Integer getHashtagAppearences(String hashtag)
 	{
-		Integer popularity = hashtags.get(hashtag);
-		if (popularity == null)
+		Integer appearences = hashtags.get(hashtag);
+		if (appearences == null)
 			return 0;
-		return popularity;
+		return appearences;
 	}
 	
 	private void addHashtag(String hashtag)
 	{
-		Integer popularity = 1;
+		Integer appearences = 1;
 		if (hashtags.containsKey(hashtag))
-			popularity += hashtags.get(hashtag);
-		hashtags.put(hashtag, popularity);
+			appearences += hashtags.get(hashtag);
+		hashtags.put(hashtag, appearences);
 	}
 	
 	private void addPopularityToHashTags(List<String> hashtags){

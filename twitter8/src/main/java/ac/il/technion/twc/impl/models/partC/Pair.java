@@ -2,24 +2,24 @@ package ac.il.technion.twc.impl.models.partC;
 
 import java.io.Serializable;
 
-public class Pair<T> implements Serializable {
+public class Pair<L,R> implements Serializable {
 	private static final String PAIR_STRING_SEPERATOR = ", ";
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1239202504731787857L;
-	public final T first;
-	public final T second;
+	public final L left;
+	public final R right;
 
-	public Pair(T first, T second) {
+	public Pair(L _left, R _right) {
 		super();
-		this.first = first;
-		this.second = second;
+		this.left = _left;
+		this.right = _right;
 	}
 
 	public int hashCode() {
-		int hashFirst = first != null ? first.hashCode() : 0;
-		int hashSecond = second != null ? second.hashCode() : 0;
+		int hashFirst = left != null ? left.hashCode() : 0;
+		int hashSecond = right != null ? right.hashCode() : 0;
 
 		return (hashFirst + hashSecond) * hashSecond + hashFirst;
 	}
@@ -28,22 +28,22 @@ public class Pair<T> implements Serializable {
 	public boolean equals(Object other) {
 		if (other instanceof Pair) {
 			Pair otherPair = (Pair) other;
-			return ((this.first == otherPair.first || (this.first != null
-					&& otherPair.first != null && this.first
-						.equals(otherPair.first))) && (this.second == otherPair.second || (this.second != null
-					&& otherPair.second != null && this.second
-						.equals(otherPair.second))));
+			return ((this.left == otherPair.left || (this.left != null
+					&& otherPair.left != null && this.left
+						.equals(otherPair.left))) && (this.right == otherPair.right || (this.right != null
+					&& otherPair.right != null && this.right
+						.equals(otherPair.right))));
 		}
 
 		return false;
 	}
 
 	public String toString() {
-		String firstString = first.toString();
-		String secondString = second.toString();
+		String firstString = left.toString();
+		String secondString = right.toString();
 		if(firstString.compareTo(secondString) < 0)
-			return first + PAIR_STRING_SEPERATOR + second;
+			return left + PAIR_STRING_SEPERATOR + right;
 		else
-			return second + PAIR_STRING_SEPERATOR + first;
+			return right + PAIR_STRING_SEPERATOR + left;
 	}
 }

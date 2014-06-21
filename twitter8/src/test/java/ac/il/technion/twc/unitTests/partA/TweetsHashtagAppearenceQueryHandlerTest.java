@@ -55,9 +55,9 @@ public class TweetsHashtagAppearenceQueryHandlerTest {
 		
 		qh.onTweetsAdded(Lists.list(root, son1, son2), repository);
 		
-		assertEquals("2",qh.getPopularity(h1).toString());
-		assertEquals("1",qh.getPopularity(h2).toString());
-		assertEquals("3",qh.getPopularity(h3).toString());
+		assertEquals("2",qh.getHashtagAppearences(h1).toString());
+		assertEquals("1",qh.getHashtagAppearences(h2).toString());
+		assertEquals("3",qh.getHashtagAppearences(h3).toString());
 	}
 
 }

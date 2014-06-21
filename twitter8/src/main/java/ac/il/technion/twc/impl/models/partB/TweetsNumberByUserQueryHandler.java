@@ -19,8 +19,11 @@ public class TweetsNumberByUserQueryHandler implements ITweetsNumberByUserQueryH
 	}
 
 	@Override
-	public String getTweetsNumberByUser(String usersId) {
-		return tweetsPerUser.get(usersId).toString();
+	public Integer getTweetsNumberByUser(String usersId) {
+		final Integer tweetsNumber = tweetsPerUser.get(usersId);
+		if(tweetsNumber == null)
+			return Integer.valueOf(0);
+		return tweetsNumber;
 	}
 
 	@Override

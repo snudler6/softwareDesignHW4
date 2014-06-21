@@ -2,9 +2,7 @@ package ac.il.technion.twc;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -20,7 +18,6 @@ import ac.il.technion.twc.impl.models.partA.TweetsHashtagsAppearencesQueryHandle
 import ac.il.technion.twc.impl.models.partA.UsersFirstTweetQueryHandler;
 import ac.il.technion.twc.impl.models.partB.TweetsNumberByUserQueryHandler;
 import ac.il.technion.twc.impl.models.partB.TweetsRetweetsAmountQueryHandler;
-import ac.il.technion.twc.impl.models.partC.Pair;
 import ac.il.technion.twc.impl.models.partC.TweetsHashtagsCouplingQueryHandler;
 import ac.il.technion.twc.impl.services.ITweetsLifetimeQueryHandler;
 import ac.il.technion.twc.impl.services.partA.ITweetsAncestorQueryHandler;
@@ -138,10 +135,10 @@ public class TweetsKnowledgeCenter extends TweetsManager
 	 * [t1,t2].
 	 * 
 	 * @param t1
-	 *            The first time.
+	 *            The left time.
 	 * 
 	 * @param t2
-	 *            The second time
+	 *            The right time
 	 * 
 	 * @return An array of strings, each string describes the info of one
 	 *         dayOfWeek.
@@ -157,14 +154,6 @@ public class TweetsKnowledgeCenter extends TweetsManager
 		return getTweetsTemporalHistogrmQueryHandler().getStrings(t1, t2);
 	}
 
-	/**
-	 * Returns the popularity of the hashtag
-	 * 
-	 * @param hashtag
-	 *            the hashtag to get the popularity of
-	 * @return 0 if the hashtag does not exist. otherwise, the number of
-	 *         retweets to roottweets that contains the given hashtag
-	 */
 	public String getHashtagPopularity(String hashtag)
 	{
 		return getTweetsHashtagsQueryHandler().getPopularity(hashtag).toString();
@@ -172,7 +161,7 @@ public class TweetsKnowledgeCenter extends TweetsManager
 	
 	public String getHashtagAppearences(String hashtag)
 	{
-		return getTweetsHashtagsAppearenceQueryHandler().getPopularity(hashtag).toString();
+		return getTweetsHashtagsAppearenceQueryHandler().getHashtagAppearences(hashtag).toString();
 	}
 	
 	public String getAncestorTweetsId(String id)
@@ -186,7 +175,7 @@ public class TweetsKnowledgeCenter extends TweetsManager
 	}
 
 	public String getTweetsNumberByUser(String user){
-		return getTweetsNumberByUserQueryHandler().getTweetsNumberByUser(user);
+		return getTweetsNumberByUserQueryHandler().getTweetsNumberByUser(user).toString();
 	}
 
 	public String getTweetsRetweetsAmount(String id){
@@ -194,11 +183,6 @@ public class TweetsKnowledgeCenter extends TweetsManager
 	}
 
 	public String[] getTweetsHashtagsCoupling(int k){
-		List< Pair<String> > pairs = getTweetsHashtagsCouplingQueryHandler().getMostCoupled(k);
-		List<String> result = new ArrayList<String>();
-		for (Pair<String> pair : pairs )
-			result.add(pair.toString());
-		
-		return result.toArray(new String[0]);
+		return getTweetsHashtagsCouplingQueryHandler().getMostCoupled(k).toArray(new String[0]);
 	}
 }

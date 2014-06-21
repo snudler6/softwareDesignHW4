@@ -11,7 +11,6 @@ import org.mockito.Mockito;
 
 import ac.il.technion.twc.api.interfaces.ITweetsRepository;
 import ac.il.technion.twc.api.models.Tweet;
-import ac.il.technion.twc.impl.models.partC.Pair;
 import ac.il.technion.twc.impl.models.partC.TweetsHashtagsCouplingQueryHandler;
 
 import com.googlecode.totallylazy.Lists;
@@ -58,14 +57,14 @@ public class TweetsHashtagsCouplingQueryHandlerTest {
 	public void test() {
 		assertTrue(qh.getMostCoupled(0).isEmpty());
 		
-		List<Pair<String>> mostCoupled = qh.getMostCoupled(1);
+		List<String> mostCoupled = qh.getMostCoupled(1);
 		assertEquals(1, mostCoupled.size());
-		assertEquals(hashtag1 + ", " + hashtag2, mostCoupled.get(0).toString());
+		assertEquals(hashtag1 + ", " + hashtag2, mostCoupled.get(0));
 
-		List<Pair<String>> secondMostCoupled = qh.getMostCoupled(2);
+		List<String> secondMostCoupled = qh.getMostCoupled(2);
 		assertEquals(2, secondMostCoupled.size());
-		assertEquals(hashtag1 + ", " + hashtag2, secondMostCoupled.get(0).toString());
-		assertEquals(hashtag1 + ", " + hashtag3, secondMostCoupled.get(1).toString());
+		assertEquals(hashtag1 + ", " + hashtag2, secondMostCoupled.get(0));
+		assertEquals(hashtag1 + ", " + hashtag3, secondMostCoupled.get(1));
 
 		
 	}
