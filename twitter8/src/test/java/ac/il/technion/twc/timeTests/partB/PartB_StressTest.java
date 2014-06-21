@@ -7,7 +7,7 @@ import org.junit.Test;
 import ac.il.technion.twc.FunctionalityTester;
 import ac.il.technion.twc.timeTests.TestUtils;
 
-public abstract class partB_StressTest {
+public abstract class PartB_StressTest {
 
 	FunctionalityTester target = new FunctionalityTester();
 
