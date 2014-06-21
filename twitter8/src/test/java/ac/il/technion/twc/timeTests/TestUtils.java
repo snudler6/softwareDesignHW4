@@ -35,6 +35,20 @@ public class TestUtils {
 		return json;
 	}
 	
+	public static String createJsonTweet(int id, String user, String date, String[] hashtags, boolean isRetweet, int parentId) {
+		String myHashtags = "my hashtags are: ";
+		for(String hashtag : hashtags)
+			myHashtags += hashtag;
+		String json =  "{\"created_at\":\"" +date + "\",\"text\":\""+ myHashtags + "\",\"id_str\":\"" + id;
+		if(isRetweet)
+			json += ",\"retweeted_status\":{\"id_str\":\""+ parentId +"\"}";
+		else
+			json += "\",\"retweeted_status\":null";
+		json += ",\"user\":{\"id_str\":\"" + user  + "\"}}";
+		
+		return json;
+	}
+	
 	public static String[] generateTweets(final int n) {
 		final String[] tweets = new String[n];
 
