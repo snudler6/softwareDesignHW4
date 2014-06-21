@@ -62,10 +62,10 @@ public class TweetsHashtagsCouplingQueryHandlerTest {
 		assertEquals(1, mostCoupled.size());
 		assertEquals(hashtag1 + ", " + hashtag2, mostCoupled.get(0).toString());
 
-		List<Pair<String>> secondMostCoupled = qh.getMostCoupled(1);
+		List<Pair<String>> secondMostCoupled = qh.getMostCoupled(2);
 		assertEquals(2, secondMostCoupled.size());
-		assertEquals(hashtag1 + ", " + hashtag2, mostCoupled.get(0).toString());
-		assertEquals(hashtag1 + ", " + hashtag3, mostCoupled.get(1).toString());
+		assertEquals(hashtag1 + ", " + hashtag2, secondMostCoupled.get(0).toString());
+		assertEquals(hashtag1 + ", " + hashtag3, secondMostCoupled.get(1).toString());
 
 		
 	}
